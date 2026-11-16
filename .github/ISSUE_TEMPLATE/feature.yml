@@ -1,0 +1,13 @@
+name: Feature
+description: Plan an independently testable change
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome and acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan

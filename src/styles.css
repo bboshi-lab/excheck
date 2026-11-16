@@ -925,3 +925,10 @@ h1 > span {
     }
   }
 }
+
+.hero-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+}

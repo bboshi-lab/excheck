@@ -188,9 +188,15 @@ function Overview({ board }: { board: Board }) {
             <span>Nothing left to chance.</span>
           </h2>
           <p>Your team’s next big thing, one small check at a time.</p>
-          <a href="#checklist" className="hero-link">
+          <button
+            type="button"
+            className="hero-link"
+            onClick={() =>
+              document.getElementById("checklist")?.scrollIntoView()
+            }
+          >
             Let’s get launch-ready <ArrowRight size={17} />
-          </a>
+          </button>
         </div>
         <div
           className="orbit"
