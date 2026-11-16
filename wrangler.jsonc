@@ -1,0 +1,22 @@
+{
+  "name": "launchboard-api",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "vars": {
+    "ENVIRONMENT": "development",
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BOARD",
+        "class_name": "ReleaseBoard",
+      },
+    ],
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["ReleaseBoard"],
+    },
+  ],
+}
