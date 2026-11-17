@@ -22,6 +22,40 @@ flowchart LR
 - `presentation/hooks`는 모션 축소 감지, 화면 진입, 숫자 변화, 체크 전환을 담당한다. `shared/lib/utils`에는 UI class 병합 함수만 둔다.
 - 도메인·응용·공통 인프라·Worker는 `src/presentation`에 의존하지 않는다. Worker는 기존 공통 Hono API와 저장소 어댑터를 유지한다.
 
+## 컴포넌트 조합과 말단 마크업
+
+View·페이지·영역 조립은 의미 있는 이름의 컴포넌트만 배치한다. HTML과 className은 해당 영역의 레이아웃 또는 말단 컴포넌트가 소유한다. 단일 파일로 모은 보조 컴포넌트나 JSX 반환 함수는 두지 않는다.
+
+```text
+DashboardView
+├─ ReleaseHero → HeroMain → HeroContent / ReadinessRing
+├─ LaunchMetrics → MetricCard → MetricHeading / MetricValue / MetricDescription
+├─ DashboardPanels
+│  ├─ TaskChecklist → ChecklistHeader / ChecklistFilters / ChecklistItemsPanel / ChecklistProgress
+│  └─ DashboardInsights → CategoryProgressChart / DashboardActivity
+└─ DemoResetNotice
+
+CategoryProgressChart
+├─ CategoryChartHeader
+└─ CategoryChartContent
+   ├─ CategoryBarChart
+   ├─ CategoryChartLegend → CategoryLegendKeys / CategoryDataSource
+   └─ CategoryCountSummary → CategoryCountItem
+
+AppShell
+├─ SkipToContentLink
+├─ WorkspaceSidebar → Brand / SidebarProjectCard / AppNavigation / SidebarFooter
+└─ WorkspaceContent
+   ├─ WorkspaceHeader
+   └─ MainContent → PageHeading / Outlet / WorkspaceFooter
+```
+
+`board/components` 아래의 `activity`, `category-chart`, `checklist`, `dashboard`, `dialog`, `feedback`, `hero`, `metrics`, `readiness`, `task-form`은 해당 영역의 하위 컴포넌트를 모은다. `layout`의 `shell`, `sidebar`, `navigation`과 `pages`의 `layouts`, `not-found`도 같은 원칙을 따른다. 컴포넌트 이름별로 직접 import하며 재수출 barrel은 만들지 않는다.
+
+폼의 입력·검증·핸들러는 `useTaskForm`, 체크 변경은 `useTaskItem`, 분야 선택과 생성 안내는 `useChecklist`에서 관리한다. 모션 ref는 명시적인 ref prop으로 레이아웃에 전달해 React 19의 ref 지원을 사용한다. 컴포넌트 분리가 DOM의 추가 중첩을 요구하지는 않는다.
+
+테이블 계열 마크업과 `br`은 사용하지 않는다. 차트 목록은 시각적으로 숨겨도 접근성 트리에서 분야별 이름과 수치를 제공한다. 줄바꿈은 CSS로 처리하며 DialogDescription 안에 중첩된 문단을 만들지 않는다.
+
 ## UI 원본과 조정
 
 `components.json`은 공식 shadcn CLI의 `new-york` 스타일과 `@/presentation/ui` 설치 경로를 지정한다. 버튼만 흉내 낸 별도 구현 대신 Card·Dialog·Select·Tabs·Checkbox·Sheet·Chart 등 실제 레지스트리 컴포넌트를 사용한다. `chart.tsx`는 Recharts 3용 공식 구성이다.
@@ -37,7 +71,7 @@ GSAP·Recharts·tw-animate-css는 화면 모션·실제 차트·Radix 전환에 
 - **완료·재개:** 항목별 변경 상태를 관리한다. 저장 중 해당 체크를 비활성화하고 서버 응답 후 보드를 갱신한다. 실패하면 기존 체크 상태와 오류 안내를 유지한다.
 - **데이터:** 준비율·완료/미완료 수·분야별 차트는 실제 체크 데이터다. 최근 활동 수는 보관 중인 최대 20건이며 누적 활동 수가 아니다. 분야의 API 값 `Engineering`·`Design`·`Operations`는 유지하고 표시 이름만 한국어로 바꿨다.
 - **키보드:** Dialog·Sheet의 포커스 제한과 복귀, Escape 닫기, Tabs 화살표 탐색, 탭과 패널 연결, 본문 바로가기를 제공한다. 바로가기는 HashRouter 경로를 변경하지 않고 본문에 포커스를 준다.
-- **차트:** 준비율은 접근 가능한 이름으로 설명하고, 분야별 수치는 별도 표로 제공한다. 데이터가 없어도 준비율을 100%로 보이지 않는다.
+- **차트:** 준비율은 접근 가능한 이름으로 설명하고, 분야별 완료·미완료·전체 수치는 접근 가능한 이름이 있는 목록으로 제공한다. 데이터가 없어도 준비율을 100%로 보이지 않는다.
 - **모션:** GSAP 진입·숫자 변화·체크 전환과 Recharts 애니메이션은 `prefers-reduced-motion`을 따른다. CSS 전환도 같은 설정을 따르며, 설정 변경 시 구독을 갱신하고 애니메이션을 정리한다.
 
 ## 검증과 제한
