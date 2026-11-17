@@ -1,21 +1,6 @@
-import { z } from "zod";
-export const TaskInput = z.object({
-  title: z.string().trim().min(3).max(100),
-  category: z.enum(["Engineering", "Design", "Operations"]),
-});
-export const TaskPatch = z.object({ done: z.boolean() });
-export type Task = z.infer<typeof TaskInput> & { id: string; done: boolean };
-export type Activity = { id: string; message: string; at: string };
-export type Board = { tasks: Task[]; activity: Activity[] };
-export function readiness(tasks: Task[]) {
-  const complete = tasks.filter((t) => t.done).length;
-  return {
-    complete,
-    total: tasks.length,
-    percent: tasks.length ? Math.round((complete / tasks.length) * 100) : 0,
-  };
-}
-export function seed(): Board {
+import type { Board } from "../domain/board"
+
+export function createDemoBoard(): Board {
   return {
     tasks: [
       {
@@ -62,13 +47,5 @@ export function seed(): Board {
         at: "2026-11-16T09:00:00Z",
       },
     ],
-  };
-}
-export function record(board: Board, message: string) {
-  board.activity.unshift({
-    id: crypto.randomUUID(),
-    message,
-    at: new Date().toISOString(),
-  });
-  board.activity = board.activity.slice(0, 20);
+  }
 }

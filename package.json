@@ -9,13 +9,17 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "build": "pnpm typecheck && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "pnpm test && pnpm build",
     "worker:dev": "wrangler dev",
-    "worker:check": "wrangler deploy --dry-run --outdir /tmp/launchboard-worker"
+    "worker:check": "wrangler deploy --dry-run --outdir /tmp/launchboard-worker",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.worker.json --noEmit",
+    "worker:test:local": "node scripts/check-worker-local.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "msw": {
     "workerDirectory": [

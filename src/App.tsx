@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from "react";
-import { NavLink, Route, Routes } from "react-router";
+import { useState, type FormEvent } from "react"
+import { NavLink, Route, Routes } from "react-router"
 import {
   ArrowUpRight,
   ArrowRight,
@@ -14,19 +14,24 @@ import {
   Command,
   Activity,
   Rocket,
-} from "lucide-react";
-import { useBoard, useTaskMutation } from "./api";
-import { readiness, type Board, type Task } from "./domain/release";
-import { useFilters } from "./store";
-import { Button } from "./components/ui/button";
+} from "lucide-react"
+import { useBoard, useTaskMutation } from "./api"
+import type { Board } from "../core/domain/board"
+import type { Task } from "../core/domain/task"
+import { calculateReadiness as readiness } from "../core/domain/readiness"
+import { useFilters } from "./store"
+import { Button } from "./components/ui/button"
+
 function TaskForm({ close }: { close: () => void }) {
-  const mutation = useTaskMutation();
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState<Task["category"]>("Engineering");
+  const mutation = useTaskMutation()
+  const [title, setTitle] = useState("")
+  const [category, setCategory] = useState<Task["category"]>("Engineering")
+
   function submit(e: FormEvent) {
-    e.preventDefault();
-    mutation.mutate({ title, category }, { onSuccess: close });
+    e.preventDefault()
+    mutation.mutate({ title, category }, { onSuccess: close })
   }
+
   return (
     <section className="task-form" aria-label="Add launch check">
       <div className="section-title">
@@ -50,10 +55,7 @@ function TaskForm({ close }: { close: () => void }) {
         </label>
         <label>
           Workstream
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value as Task["category"])}
-          >
+          <select value={category} onChange={(e) => setCategory(e.target.value as Task["category"])}>
             <option>Engineering</option>
             <option>Design</option>
             <option>Operations</option>
@@ -66,15 +68,15 @@ function TaskForm({ close }: { close: () => void }) {
         </Button>
       </form>
     </section>
-  );
+  )
 }
+
 function Checklist({ board }: { board: Board }) {
-  const { category, setCategory } = useFilters();
-  const mutation = useTaskMutation();
-  const [adding, setAdding] = useState(false);
-  const tasks = board.tasks.filter(
-    (t) => category === "All" || t.category === category,
-  );
+  const { category, setCategory } = useFilters()
+  const mutation = useTaskMutation()
+  const [adding, setAdding] = useState(false)
+  const tasks = board.tasks.filter((t) => category === "All" || t.category === category)
+
   return (
     <section className="panel checklist">
       <div className="section-title">
@@ -91,11 +93,7 @@ function Checklist({ board }: { board: Board }) {
       </div>
       <div className="filters" aria-label="Filter workstream">
         {["All", "Engineering", "Design", "Operations"].map((c) => (
-          <button
-            key={c}
-            aria-pressed={category === c}
-            onClick={() => setCategory(c)}
-          >
+          <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>
             {c}
           </button>
         ))}
@@ -119,16 +117,10 @@ function Checklist({ board }: { board: Board }) {
               {task.done ? <Check size={15} /> : <Circle size={18} />}
             </button>
             <span className="task-title">{task.title}</span>
-            <span className={`tag ${task.category.toLowerCase()}`}>
-              {task.category}
-            </span>
+            <span className={`tag ${task.category.toLowerCase()}`}>{task.category}</span>
           </div>
         ))}
-        {!tasks.length && (
-          <p className="empty">
-            Nothing here yet. Add the first check for this workstream.
-          </p>
-        )}
+        {!tasks.length && <p className="empty">Nothing here yet. Add the first check for this workstream.</p>}
       </div>
       <footer className="panel-footer">
         <span>
@@ -138,8 +130,9 @@ function Checklist({ board }: { board: Board }) {
         <span>{readiness(board.tasks).complete} completed</span>
       </footer>
     </section>
-  );
+  )
 }
+
 function Feed({ board }: { board: Board }) {
   return (
     <section className="panel feed">
@@ -169,11 +162,13 @@ function Feed({ board }: { board: Board }) {
         ))}
       </ol>
     </section>
-  );
+  )
 }
+
 function Overview({ board }: { board: Board }) {
-  const progress = readiness(board.tasks);
-  const remaining = progress.total - progress.complete;
+  const progress = readiness(board.tasks)
+  const remaining = progress.total - progress.complete
+
   return (
     <>
       <section className="hero">
@@ -191,17 +186,12 @@ function Overview({ board }: { board: Board }) {
           <button
             type="button"
             className="hero-link"
-            onClick={() =>
-              document.getElementById("checklist")?.scrollIntoView()
-            }
+            onClick={() => document.getElementById("checklist")?.scrollIntoView()}
           >
             Let’s get launch-ready <ArrowRight size={17} />
           </button>
         </div>
-        <div
-          className="orbit"
-          aria-label={`${progress.percent}% launch readiness`}
-        >
+        <div className="orbit" aria-label={`${progress.percent}% launch readiness`}>
           <div
             className="orbit-ring"
             style={{
@@ -231,11 +221,7 @@ function Overview({ board }: { board: Board }) {
             {progress.percent}
             <small>%</small>
           </strong>
-          <p>
-            {progress.percent === 100
-              ? "All checks complete"
-              : "Progress you can feel"}
-          </p>
+          <p>{progress.percent === 100 ? "All checks complete" : "Progress you can feel"}</p>
         </div>
         <div>
           <span>
@@ -253,15 +239,9 @@ function Overview({ board }: { board: Board }) {
           </span>
           <strong>
             {remaining.toString().padStart(2, "0")}{" "}
-            <em className={remaining ? "" : "ready"}>
-              {remaining ? "Needs attention" : "Ready"}
-            </em>
+            <em className={remaining ? "" : "ready"}>{remaining ? "Needs attention" : "Ready"}</em>
           </strong>
-          <p>
-            {remaining
-              ? "A few things to wrap up"
-              : "Ready for a human release decision"}
-          </p>
+          <p>{remaining ? "A few things to wrap up" : "Ready for a human release decision"}</p>
         </div>
       </section>
       <div className="content-grid" id="checklist">
@@ -285,10 +265,12 @@ function Overview({ board }: { board: Board }) {
         </div>
       </div>
     </>
-  );
+  )
 }
+
 export default function App() {
-  const board = useBoard();
+  const board = useBoard()
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -336,8 +318,7 @@ export default function App() {
       <main>
         <header>
           <span>
-            Workspace <span className="slash">/</span>{" "}
-            <strong>Project Atlas</strong>
+            Workspace <span className="slash">/</span> <strong>Project Atlas</strong>
           </span>
           <span className="header-right">
             <span className="demo-badge">MSW DEMO</span>
@@ -371,10 +352,7 @@ export default function App() {
           ) : (
             <Routes>
               <Route path="/" element={<Overview board={board.data} />} />
-              <Route
-                path="/checks"
-                element={<Checklist board={board.data} />}
-              />
+              <Route path="/checks" element={<Checklist board={board.data} />} />
               <Route path="/activity" element={<Feed board={board.data} />} />
               <Route
                 path="*"
@@ -394,5 +372,5 @@ export default function App() {
         </div>
       </main>
     </div>
-  );
+  )
 }

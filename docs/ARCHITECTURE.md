@@ -1,5 +1,7 @@
 # Architecture and decisions
 
+> 공통 코어 분리 이후의 현재 의존 방향과 저장·검증 계약은 [공통 보드 코어 설계](CORE_ARCHITECTURE.md)를 참고하세요. 아래 초기 구조 설명 중 코어·어댑터에 관한 내용은 해당 문서로 대체됩니다.
+
 ```
 React routes → TanStack Query → fetch /api/*
                                  ├─ MSW browser (default, including deployed demo)
