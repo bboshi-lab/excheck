@@ -1,4 +1,5 @@
 import { ChartNoAxesCombined } from "lucide-react"
+
 import { PanelHeading } from "../../../components/panel-heading"
 
 export function CategoryChartHeader() {

@@ -1,4 +1,5 @@
 import { CircleDot } from "lucide-react"
+
 import { Badge } from "../../ui/badge"
 
 export function WorkspaceDemoBadge() {

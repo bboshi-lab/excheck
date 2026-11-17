@@ -1,6 +1,9 @@
 import { Pie, PieChart } from "recharts"
+
 import type { Readiness } from "../../../../../core/domain/readiness"
+
 import { ChartContainer, type ChartConfig } from "../../../ui/chart"
+
 import { useReducedMotion } from "../../../hooks/use-reduced-motion"
 
 const chartConfig = {

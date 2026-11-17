@@ -1,12 +1,14 @@
-import { Sparkles } from "lucide-react"
 import { SidebarEncouragement } from "./sidebar-encouragement"
+import { SidebarTipIcon } from "./sidebar-tip-icon"
+import { SidebarTipLayout } from "./sidebar-tip-layout"
+import { SidebarTipTitle } from "./sidebar-tip-title"
 
 export function SidebarTip() {
   return (
-    <div className="rounded-xl border border-primary/10 bg-linear-to-br from-primary/8 to-transparent p-4">
-      <Sparkles className="mb-3 size-4 text-primary" />
-      <p className="text-xs font-medium">좋은 출시는 디테일에서.</p>
+    <SidebarTipLayout>
+      <SidebarTipIcon />
+      <SidebarTipTitle />
       <SidebarEncouragement />
-    </div>
+    </SidebarTipLayout>
   )
 }

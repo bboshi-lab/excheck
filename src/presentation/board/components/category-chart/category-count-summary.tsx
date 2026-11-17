@@ -1,5 +1,7 @@
 import type { CategorySummary } from "../../../../../core/domain/board-metrics"
+
 import { CategoryCountItem } from "./category-count-item"
+import { CategoryCountListLayout } from "./category-count-list-layout"
 
 type CategoryCountSummaryProps = {
   summaries: CategorySummary[]
@@ -7,10 +9,10 @@ type CategoryCountSummaryProps = {
 
 export function CategoryCountSummary({ summaries }: CategoryCountSummaryProps) {
   return (
-    <ul aria-label="분야별 체크 집계" className="sr-only">
+    <CategoryCountListLayout>
       {summaries.map((summary) => (
         <CategoryCountItem key={summary.category} summary={summary} />
       ))}
-    </ul>
+    </CategoryCountListLayout>
   )
 }

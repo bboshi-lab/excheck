@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+
 import { CardDescription, CardTitle } from "../ui/card"
 
 type PanelTitleProps = {

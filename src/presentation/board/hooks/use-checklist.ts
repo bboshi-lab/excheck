@@ -1,7 +1,9 @@
 import { useId, useState } from "react"
+
 import type { Board } from "../../../../core/domain/board"
-import type { Task } from "../../../../core/domain/task"
 import { calculateReadiness } from "../../../../core/domain/readiness"
+import type { Task } from "../../../../core/domain/task"
+
 import { useBoardFilter } from "../state/filter-store"
 
 export function useChecklist(board: Board) {

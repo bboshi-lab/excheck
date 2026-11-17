@@ -1,12 +1,14 @@
 import type { Task } from "../../../../core/domain/task"
+
 import { useTaskItem } from "../hooks/use-task-item"
-import { TaskItemLayout } from "./checklist/task-item-layout"
-import { TaskItemContent } from "./checklist/task-item-content"
-import { TaskToggle } from "./checklist/task-toggle"
-import { TaskTitle } from "./checklist/task-title"
-import { TaskSavingIndicator } from "./checklist/task-saving-indicator"
+
 import { TaskCategoryBadge } from "./checklist/task-category-badge"
+import { TaskItemContent } from "./checklist/task-item-content"
+import { TaskItemLayout } from "./checklist/task-item-layout"
 import { TaskMutationError } from "./checklist/task-mutation-error"
+import { TaskSavingIndicator } from "./checklist/task-saving-indicator"
+import { TaskTitle } from "./checklist/task-title"
+import { TaskToggle } from "./checklist/task-toggle"
 
 type TaskItemProps = {
   task: Task

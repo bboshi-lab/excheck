@@ -1,6 +1,8 @@
-import type { ReactNode } from "react"
 import type { UseQueryResult } from "@tanstack/react-query"
+import type { ReactNode } from "react"
+
 import type { Board } from "../../../../core/domain/board"
+
 import { BoardError } from "./board-error"
 import { BoardSkeleton } from "./board-skeleton"
 

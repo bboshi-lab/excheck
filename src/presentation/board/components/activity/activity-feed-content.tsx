@@ -1,5 +1,7 @@
 import type { Activity } from "../../../../../core/domain/board"
+
 import { CardContent } from "../../../ui/card"
+
 import { ActivityList } from "./activity-list"
 import { ActivityRetentionNote } from "./activity-retention-note"
 

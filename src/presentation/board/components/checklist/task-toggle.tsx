@@ -1,4 +1,5 @@
 import type { Task } from "../../../../../core/domain/task"
+
 import { Checkbox } from "../../../ui/checkbox"
 
 type TaskToggleProps = {

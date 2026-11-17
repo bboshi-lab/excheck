@@ -1,13 +1,15 @@
 import { Separator } from "../../ui/separator"
-import { SidebarTip } from "./sidebar-tip"
+
 import { SidebarDemoStatus } from "./sidebar-demo-status"
+import { SidebarFooterLayout } from "./sidebar-footer-layout"
+import { SidebarTip } from "./sidebar-tip"
 
 export function SidebarFooter() {
   return (
-    <div className="mt-auto pt-10">
+    <SidebarFooterLayout>
       <SidebarTip />
       <Separator className="my-5 bg-white/7" />
       <SidebarDemoStatus />
-    </div>
+    </SidebarFooterLayout>
   )
 }

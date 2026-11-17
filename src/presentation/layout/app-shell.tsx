@@ -1,13 +1,14 @@
 import { useRef } from "react"
 import { Outlet } from "react-router"
-import { WorkspaceSidebar } from "./workspace-sidebar"
+
 import { AppShellFrame } from "./shell/app-shell-frame"
-import { SkipToContentLink } from "./shell/skip-to-content-link"
-import { WorkspaceContent } from "./shell/workspace-content"
-import { WorkspaceHeader } from "./shell/workspace-header"
 import { MainContent } from "./shell/main-content"
 import { PageHeading } from "./shell/page-heading"
+import { SkipToContentLink } from "./shell/skip-to-content-link"
+import { WorkspaceContent } from "./shell/workspace-content"
 import { WorkspaceFooter } from "./shell/workspace-footer"
+import { WorkspaceHeader } from "./shell/workspace-header"
+import { WorkspaceSidebar } from "./workspace-sidebar"
 
 export function AppShell() {
   const main = useRef<HTMLElement>(null)

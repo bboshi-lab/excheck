@@ -1,4 +1,5 @@
 import { createContext, useContext, type ReactNode } from "react"
+
 import type { BoardGateway } from "../../../../core/application/ports/board-gateway"
 
 const BoardGatewayContext = createContext<BoardGateway | null>(null)

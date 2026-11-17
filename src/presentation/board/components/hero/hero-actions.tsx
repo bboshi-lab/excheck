@@ -1,4 +1,5 @@
 import { ChecklistShortcut } from "./checklist-shortcut"
+import { HeroActionsLayout } from "./hero-actions-layout"
 import { HeroNextStep } from "./hero-next-step"
 
 type HeroActionsProps = {
@@ -7,9 +8,9 @@ type HeroActionsProps = {
 
 export function HeroActions({ remaining }: HeroActionsProps) {
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-4">
+    <HeroActionsLayout>
       <ChecklistShortcut />
       <HeroNextStep remaining={remaining} />
-    </div>
+    </HeroActionsLayout>
   )
 }

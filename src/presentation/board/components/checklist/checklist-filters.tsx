@@ -1,5 +1,6 @@
-import type { TaskFilter } from "../../state/filter-store"
 import { CardContent } from "../../../ui/card"
+
+import type { TaskFilter } from "../../state/filter-store"
 import { TaskFilters } from "../task-filters"
 
 type ChecklistFiltersProps = {

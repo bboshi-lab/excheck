@@ -1,5 +1,7 @@
 import type { TaskCategory } from "../../../../../core/domain/task"
+
 import { Badge } from "../../../ui/badge"
+
 import { categoryLabels, categoryBadgeClasses } from "../../labels"
 
 type TaskCategoryBadgeProps = {

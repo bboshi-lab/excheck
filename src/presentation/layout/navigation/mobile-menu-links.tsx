@@ -1,4 +1,5 @@
 import { AppNavigation } from "../app-navigation"
+import { MobileMenuLinksLayout } from "./mobile-menu-links-layout"
 
 type MobileMenuLinksProps = {
   onNavigate: () => void
@@ -6,8 +7,8 @@ type MobileMenuLinksProps = {
 
 export function MobileMenuLinks({ onNavigate }: MobileMenuLinksProps) {
   return (
-    <div className="px-5">
+    <MobileMenuLinksLayout>
       <AppNavigation onNavigate={onNavigate} />
-    </div>
+    </MobileMenuLinksLayout>
   )
 }

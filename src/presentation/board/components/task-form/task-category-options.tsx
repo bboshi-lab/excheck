@@ -1,5 +1,7 @@
 import { TASK_CATEGORIES } from "../../../../../core/domain/task"
+
 import { SelectContent, SelectItem } from "../../../ui/select"
+
 import { categoryLabels } from "../../labels"
 
 export function TaskCategoryOptions() {

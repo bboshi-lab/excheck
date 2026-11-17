@@ -1,7 +1,11 @@
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+
 import type { CategorySummary } from "../../../../../core/domain/board-metrics"
+
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "../../../ui/chart"
+
 import { useReducedMotion } from "../../../hooks/use-reduced-motion"
+
 import { categoryLabels } from "../../labels"
 
 const chartConfig = {

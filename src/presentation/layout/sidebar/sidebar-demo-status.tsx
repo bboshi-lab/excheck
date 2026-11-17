@@ -1,11 +1,12 @@
 import { SidebarDemoBadge } from "./sidebar-demo-badge"
 import { SidebarDemoCaption } from "./sidebar-demo-caption"
+import { SidebarDemoStatusLayout } from "./sidebar-demo-status-layout"
 
 export function SidebarDemoStatus() {
   return (
-    <div className="flex items-center gap-3">
+    <SidebarDemoStatusLayout>
       <SidebarDemoBadge />
       <SidebarDemoCaption />
-    </div>
+    </SidebarDemoStatusLayout>
   )
 }

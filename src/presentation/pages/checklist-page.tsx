@@ -1,8 +1,9 @@
+import { useSectionEntrance } from "../hooks/use-section-entrance"
+
 import { useBoard } from "../board/api/board-hooks"
 import { BoardQueryBoundary } from "../board/components/board-query-boundary"
-import { TaskChecklist } from "../board/components/task-checklist"
 import { CategoryProgressChart } from "../board/components/category-progress-chart"
-import { useSectionEntrance } from "../hooks/use-section-entrance"
+import { TaskChecklist } from "../board/components/task-checklist"
 import { ChecklistPageLayout } from "./layouts/checklist-page-layout"
 
 export function ChecklistPage() {

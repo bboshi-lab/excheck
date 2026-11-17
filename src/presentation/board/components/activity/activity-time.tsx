@@ -1,4 +1,5 @@
 import { Clock3 } from "lucide-react"
+
 import { formatActivityTime } from "../../../lib/format-activity-time"
 
 type ActivityTimeProps = {

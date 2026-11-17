@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
+
 import { CardHeader } from "../ui/card"
+
 import { PanelTitle } from "./panel-title"
 
 type PanelHeadingProps = {

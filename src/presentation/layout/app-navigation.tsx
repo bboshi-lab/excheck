@@ -1,5 +1,6 @@
-import { navigationItems } from "./navigation/navigation-items"
 import { NavigationItem } from "./navigation/navigation-item"
+import { navigationItems } from "./navigation/navigation-items"
+import { NavigationListLayout } from "./navigation/navigation-list-layout"
 
 type AppNavigationProps = {
   onNavigate?: () => void
@@ -7,10 +8,10 @@ type AppNavigationProps = {
 
 export function AppNavigation({ onNavigate }: AppNavigationProps) {
   return (
-    <nav aria-label="주 메뉴" className="grid gap-1.5">
+    <NavigationListLayout>
       {navigationItems.map((item) => (
         <NavigationItem key={item.path} {...item} onNavigate={onNavigate} />
       ))}
-    </nav>
+    </NavigationListLayout>
   )
 }

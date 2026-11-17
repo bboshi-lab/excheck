@@ -1,4 +1,6 @@
 import type { Activity } from "../../../../../core/domain/board"
+
+import { ActivityDetailsLayout } from "./activity-details-layout"
 import { ActivityMessage } from "./activity-message"
 import { ActivityTime } from "./activity-time"
 
@@ -8,9 +10,9 @@ type ActivityDetailsProps = {
 
 export function ActivityDetails({ event }: ActivityDetailsProps) {
   return (
-    <div className="min-w-0 pt-0.5">
+    <ActivityDetailsLayout>
       <ActivityMessage message={event.message} />
       <ActivityTime at={event.at} />
-    </div>
+    </ActivityDetailsLayout>
   )
 }

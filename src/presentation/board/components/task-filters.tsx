@@ -1,5 +1,7 @@
 import { TASK_CATEGORIES } from "../../../../core/domain/task"
+
 import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs"
+
 import { categoryLabels } from "../labels"
 import { isTaskFilter, type TaskFilter } from "../state/filter-store"
 

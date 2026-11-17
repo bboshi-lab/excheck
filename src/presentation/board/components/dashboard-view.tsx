@@ -1,14 +1,16 @@
 import type { Board } from "../../../../core/domain/board"
+
 import { useSectionEntrance } from "../../hooks/use-section-entrance"
-import { ReleaseHero } from "./release-hero"
-import { LaunchMetrics } from "./launch-metrics"
-import { TaskChecklist } from "./task-checklist"
+
 import { CategoryProgressChart } from "./category-progress-chart"
+import { DashboardActivity } from "./dashboard/dashboard-activity"
+import { DashboardInsights } from "./dashboard/dashboard-insights"
 import { DashboardLayout } from "./dashboard/dashboard-layout"
 import { DashboardPanels } from "./dashboard/dashboard-panels"
-import { DashboardInsights } from "./dashboard/dashboard-insights"
-import { DashboardActivity } from "./dashboard/dashboard-activity"
 import { DemoResetNotice } from "./dashboard/demo-reset-notice"
+import { LaunchMetrics } from "./launch-metrics"
+import { ReleaseHero } from "./release-hero"
+import { TaskChecklist } from "./task-checklist"
 
 type DashboardViewProps = {
   board: Board

@@ -1,7 +1,7 @@
-import { BoardErrorLayout } from "./feedback/board-error-layout"
 import { BoardErrorIcon } from "./feedback/board-error-icon"
-import { BoardErrorTitle } from "./feedback/board-error-title"
+import { BoardErrorLayout } from "./feedback/board-error-layout"
 import { BoardErrorMessage } from "./feedback/board-error-message"
+import { BoardErrorTitle } from "./feedback/board-error-title"
 import { BoardRetryButton } from "./feedback/board-retry-button"
 
 type BoardErrorProps = {

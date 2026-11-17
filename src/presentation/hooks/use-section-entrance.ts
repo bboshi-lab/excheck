@@ -1,6 +1,8 @@
 import { useRef } from "react"
-import { gsap, useGSAP } from "../lib/motion"
+
 import { useReducedMotion } from "./use-reduced-motion"
+
+import { gsap, useGSAP } from "../lib/motion"
 
 export function useSectionEntrance(ready = true) {
   const scope = useRef<HTMLDivElement>(null)

@@ -1,6 +1,8 @@
 import { Activity, CheckCheck, Flag } from "lucide-react"
+
 import type { Board } from "../../../../core/domain/board"
 import { calculateReadiness } from "../../../../core/domain/readiness"
+
 import { MetricCard } from "./metric-card"
 import { LaunchMetricsLayout } from "./metrics/launch-metrics-layout"
 

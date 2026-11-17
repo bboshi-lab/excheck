@@ -1,5 +1,7 @@
 import type { Task } from "../../../../../core/domain/task"
+
 import { PanelHeading } from "../../../components/panel-heading"
+
 import { CreateTaskDialog } from "../create-task-dialog"
 import { ChecklistTitle } from "./checklist-title"
 

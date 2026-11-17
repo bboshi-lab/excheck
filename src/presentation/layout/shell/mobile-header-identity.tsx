@@ -1,11 +1,12 @@
 import { Brand } from "../brand"
 import { MobileNavigation } from "../mobile-navigation"
+import { MobileHeaderIdentityLayout } from "./mobile-header-identity-layout"
 
 export function MobileHeaderIdentity() {
   return (
-    <div className="flex items-center gap-3 lg:hidden">
+    <MobileHeaderIdentityLayout>
       <MobileNavigation />
       <Brand />
-    </div>
+    </MobileHeaderIdentityLayout>
   )
 }

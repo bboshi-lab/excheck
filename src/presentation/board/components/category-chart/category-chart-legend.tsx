@@ -1,11 +1,12 @@
-import { CategoryLegendKeys } from "./category-legend-keys"
+import { CategoryChartLegendLayout } from "./category-chart-legend-layout"
 import { CategoryDataSource } from "./category-data-source"
+import { CategoryLegendKeys } from "./category-legend-keys"
 
 export function CategoryChartLegend() {
   return (
-    <div className="mt-4 flex justify-between border-t border-white/5 pt-4 text-[11px] text-muted-foreground">
+    <CategoryChartLegendLayout>
       <CategoryLegendKeys />
       <CategoryDataSource />
-    </div>
+    </CategoryChartLegendLayout>
   )
 }

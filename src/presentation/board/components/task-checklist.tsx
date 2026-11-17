@@ -1,9 +1,13 @@
 import type { Board } from "../../../../core/domain/board"
+
 import { Card } from "../../ui/card"
+
 import { LiveAnnouncement } from "../../components/live-announcement"
+
 import { useChecklist } from "../hooks/use-checklist"
-import { ChecklistHeader } from "./checklist/checklist-header"
+
 import { ChecklistFilters } from "./checklist/checklist-filters"
+import { ChecklistHeader } from "./checklist/checklist-header"
 import { ChecklistItemsPanel } from "./checklist/checklist-items-panel"
 import { ChecklistProgress } from "./checklist/checklist-progress"
 

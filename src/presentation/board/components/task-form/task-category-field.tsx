@@ -1,8 +1,12 @@
 import { useId } from "react"
+
 import type { TaskCategory } from "../../../../../core/domain/task"
-import { FormField } from "../../../components/form-field"
+
 import { Label } from "../../../ui/label"
 import { Select, SelectTrigger, SelectValue } from "../../../ui/select"
+
+import { FormField } from "../../../components/form-field"
+
 import { TaskCategoryOptions } from "./task-category-options"
 
 type TaskCategoryFieldProps = {

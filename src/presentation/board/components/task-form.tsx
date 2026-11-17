@@ -1,10 +1,12 @@
 import type { CreateTaskInput } from "../../../../core/domain/task"
+
 import { useTaskForm } from "../hooks/use-task-form"
+
+import { TaskCategoryField } from "./task-form/task-category-field"
+import { TaskFormActions } from "./task-form/task-form-actions"
+import { TaskFormError } from "./task-form/task-form-error"
 import { TaskFormLayout } from "./task-form/task-form-layout"
 import { TaskTitleField } from "./task-form/task-title-field"
-import { TaskCategoryField } from "./task-form/task-category-field"
-import { TaskFormError } from "./task-form/task-form-error"
-import { TaskFormActions } from "./task-form/task-form-actions"
 
 type TaskFormProps = {
   pending: boolean
