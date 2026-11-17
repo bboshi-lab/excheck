@@ -1,6 +1,6 @@
 # 한국어 출시 관제 화면
 
-전면 정비 계획의 두 번째 PR이다. 기존 생성·완료·재개·분야 필터·세 경로·새로고침 초기화를 유지하면서, 공통 코어 위에 표현 계층과 앱 조립 지점을 분리했다. 인증·삭제·새로운 저장 방식이나 실제 Cloudflare 연결은 추가하지 않는다.
+기존 생성·완료·재개·분야 필터·세 경로·새로고침 초기화를 유지하면서, 공통 코어 위에 표현 계층과 앱 조립 지점을 분리한다. 인증·삭제·새로운 저장 방식이나 실제 Cloudflare 연결은 범위 밖이다. 전면 정비의 구현 근거는 [PR #7](https://github.com/bboshi-lab/excheck/pull/7), 이후 품질 규칙은 [품질 문서](QUALITY.md)를 참고한다.
 
 ## 책임과 의존 방향
 
@@ -58,11 +58,11 @@ AppShell
 
 ## UI 원본과 조정
 
-`components.json`은 공식 shadcn CLI의 `new-york` 스타일과 `@/presentation/ui` 설치 경로를 지정한다. 버튼만 흉내 낸 별도 구현 대신 Card·Dialog·Select·Tabs·Checkbox·Sheet·Chart 등 실제 레지스트리 컴포넌트를 사용한다. `chart.tsx`는 Recharts 3용 공식 구성이다.
+`components.json`은 공식 shadcn CLI의 `new-york` 스타일과 `@presentation/ui` 설치 경로를 지정한다. Card·Dialog·Select·Tabs·Checkbox·Sheet·Chart 등 실제 레지스트리 컴포넌트를 사용한다. `chart.tsx`는 Recharts 3용 공식 구성이다. 설치 후 기능 코드의 import는 가장 구체적인 `@ui/*`로 정규화한다.
 
-가져온 파일의 `cn` import는 프로젝트의 `@/shared/lib/utils`로 연결하고, Dialog·Sheet의 닫기 문구는 한국어로 바꿨다. 테마는 `src/styles.css`의 Tailwind v4 토큰을 사용한다. 원본 파일은 React 선언·파일 분리 규칙의 외부 컴포넌트 예외이며, 직접 만든 기능 컴포넌트는 이 예외에 포함되지 않는다.
+가져온 파일의 `cn` import는 프로젝트의 `@shared/lib/utils`로 연결하고, Dialog·Sheet의 닫기 문구는 한국어로 바꿨다. 테마는 `src/styles.css`의 Tailwind v4 토큰을 사용한다. 원본 파일은 React 선언·파일 분리 규칙의 외부 컴포넌트 예외이며, 직접 만든 기능 컴포넌트는 이 예외에 포함되지 않는다.
 
-GSAP·Recharts·tw-animate-css는 화면 모션·실제 차트·Radix 전환에 사용한다. 차트·모션·React 라이브러리를 별도 번들로 나눠 캐시 단위를 구분했다. 이 분리는 총 다운로드 양을 줄였다는 뜻은 아니다. ESLint 도입과 TypeScript 버전 조정은 다음 PR 범위다.
+GSAP·Recharts·tw-animate-css는 화면 모션·실제 차트·Radix 전환에 사용한다. 차트·모션·React 라이브러리를 별도 번들로 나눠 캐시 단위를 구분했다. 이 분리는 총 다운로드 양을 줄였다는 뜻은 아니다. 현재 ESLint 규칙과 TypeScript 버전 선택은 [품질 문서](QUALITY.md)를 따른다.
 
 ## 상태와 접근성
 
@@ -71,7 +71,7 @@ GSAP·Recharts·tw-animate-css는 화면 모션·실제 차트·Radix 전환에 
 - **완료·재개:** 항목별 변경 상태를 관리한다. 저장 중 해당 체크를 비활성화하고 서버 응답 후 보드를 갱신한다. 실패하면 기존 체크 상태와 오류 안내를 유지한다.
 - **데이터:** 준비율·완료/미완료 수·분야별 차트는 실제 체크 데이터다. 최근 활동 수는 보관 중인 최대 20건이며 누적 활동 수가 아니다. 분야의 API 값 `Engineering`·`Design`·`Operations`는 유지하고 표시 이름만 한국어로 바꿨다.
 - **키보드:** Dialog·Sheet의 포커스 제한과 복귀, Escape 닫기, Tabs 화살표 탐색, 탭과 패널 연결, 본문 바로가기를 제공한다. 바로가기는 HashRouter 경로를 변경하지 않고 본문에 포커스를 준다.
-- **차트:** 준비율은 접근 가능한 이름으로 설명하고, 분야별 완료·미완료·전체 수치는 접근 가능한 이름이 있는 목록으로 제공한다. 데이터가 없어도 준비율을 100%로 보이지 않는다.
+- **차트:** 준비율은 접근 가능한 이름으로 설명하고, 분야별 완료·미완료·전체 수치는 접근 가능한 이름이 있는 목록으로 제공한다. 장식용 원형 차트 내부의 키보드 포커스는 끈다. 데이터가 없어도 준비율을 100%로 보이지 않는다.
 - **모션:** GSAP 진입·숫자 변화·체크 전환과 Recharts 애니메이션은 `prefers-reduced-motion`을 따른다. CSS 전환도 같은 설정을 따르며, 설정 변경 시 구독을 갱신하고 애니메이션을 정리한다.
 
 ## 검증과 제한

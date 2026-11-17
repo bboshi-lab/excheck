@@ -1,6 +1,6 @@
 # 공통 보드 코어와 어댑터
 
-PR 1의 목적은 기존 HTTP 계약과 화면 동작을 유지하면서 보드 처리 규칙을 한곳으로 모으는 것이다. 화면·컴포넌트 재설계와 앱 조립 경계는 [표현 계층 설계](PRESENTATION_ARCHITECTURE.md)에 이어서 정리한다.
+기존 HTTP 계약과 화면 동작을 유지하면서 보드 처리 규칙을 한곳으로 모은다. 전면 정비의 구현 근거는 [PR #5](https://github.com/bboshi-lab/excheck/pull/5), 화면·컴포넌트와 앱 조립 경계는 [표현 계층 설계](PRESENTATION_ARCHITECTURE.md)를 참고한다.
 
 ## 의존 방향
 
@@ -46,7 +46,7 @@ Durable Object 이름 `demo`, 클래스 `ReleaseBoard`, 저장 키 `board`, 기�
 | POST `/api/tasks`      | 201, 생성된 항목           | 잘못된 JSON·제목·분류는 400        |
 | PATCH `/api/tasks/:id` | 200, 변경된 항목           | 잘못된 done은 400, 없는 항목은 404 |
 
-분류의 wire 값, 제목 3–100자 및 trim, `{ error: string }` 형식, 최신 활동 20개 제한을 유지한다. UI와 API 오류·활동 문구는 PR 2에서 한국어로 전환했다. 저장소 오류의 내부 내용은 HTTP 응답에 노출하지 않는다.
+분류의 API 값, 제목 3~100자 및 trim, `{ error: string }` 형식, 최신 활동 20개 제한을 유지한다. UI와 API 오류·활동 문구는 한국어다. 저장소 오류의 내부 내용은 HTTP 응답에 노출하지 않는다.
 
 MSW는 현재 origin의 API만 인터셉트한다. 기본 경로와 Pages의 `/excheck/api/` 경로를 모두 검증하며, 새로고침 초기화 동작을 유지한다.
 
@@ -56,8 +56,8 @@ MSW는 현재 origin의 API만 인터셉트한다. 기본 경로와 Pages의 `/e
 - jsdom 프로젝트는 React 통합·클라이언트를 검증한다. 전역 MSW·필터 초기화는 이 환경에만 적용한다.
 - 같은 HTTP 계약 시나리오를 MSW 루트·Pages 경로·Worker 라우팅/저장소 어댑터에 적용한다.
 - 테스트 더블은 작은 저장소 포트만 구현한다. 불완전한 객체를 Cloudflare namespace로 이중 타입 단언하지 않는다.
-- `pnpm typecheck`는 브라우저와 Worker를 별도 타입 환경에서 검사한다. Worker 전역 타입이 브라우저 Request 타입을 덮지 않는다.
+- `pnpm typecheck`는 브라우저·Worker·브라우저 검사 도구를 세 타입 설정으로 검사한다. Worker 전역 타입이 브라우저 Request 타입을 덮지 않는다.
 - `pnpm worker:test:local`은 임시 저장소와 빈 포트로 실제 로컬 workerd를 실행해 생성·완료·입력 거절·동시 요청·프로세스 재시작 후 복원을 확인한다. 종료 시 자신이 시작한 프로세스와 임시 데이터만 정리한다.
 - 브라우저 검사는 production 빌드와 Pages 하위 경로에서 전체 시나리오를 실행한다.
 
-실행 명령과 원격 CI 결과는 PR에 기록한다. 이 문서는 Cloudflare 운영 환경이나 자동 lint 규칙까지 검증했다는 뜻이 아니다. 화면 검증은 표현 계층 문서와 해당 PR을 참고한다.
+실행 명령과 원격 CI 결과는 각 PR에 기록한다. 코어의 로컬 검증을 Cloudflare 운영 환경 검증으로 보고하지 않는다. 자동 lint 규칙과 경로 별칭은 [품질 문서](QUALITY.md), 화면 검증은 표현 계층 문서와 해당 PR을 참고한다.
