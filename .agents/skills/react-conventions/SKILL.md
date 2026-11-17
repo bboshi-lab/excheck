@@ -98,6 +98,8 @@ export function DashboardView({ board }: DashboardViewProps) {
 
 ## 포맷과 의미 단위 구분
 
+- import 경로는 `tsconfig.paths.json`의 별칭을 사용하고 `pnpm lint:fix`로 정규화한다.
+- 외부·프로젝트 모듈은 양쪽 모두 두 개 이상일 때만 빈 줄로 나눈다. 한 개짜리 그룹은 합친다.
 - 저장소 `.prettierrc.json`을 사용한다. 세미콜론 없이 스페이스 2칸, trailing comma는 `all`, printWidth는 120이다.
 - `if (condition) return` 같은 단일 구문 가드는 조건과 본문을 같은 줄에 두고 중괄호를 생략하는 형태를 선호한다.
 - 조건문 본문을 다음 줄에 작성한다면 반드시 중괄호로 감싼다. Prettier 적용 후 한 줄을 유지할 수 없다면 블록을 사용한다.
