@@ -6,10 +6,10 @@ import { cleanup } from "@testing-library/react";
 import { handlers, resetMockBoard } from "../mocks/handlers";
 export const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledFrame: "error" }));
-afterEach(() => {
+afterEach(async () => {
   cleanup();
   useFilters.setState({ category: "All" });
   server.resetHandlers();
-  resetMockBoard();
+  await resetMockBoard();
 });
 afterAll(() => server.close());

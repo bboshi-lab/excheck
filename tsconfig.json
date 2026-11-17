@@ -12,8 +12,8 @@
       "vite/client",
       "vitest/globals",
       "@testing-library/jest-dom",
-      "@cloudflare/workers-types"
+      "node"
     ]
   },
-  "include": ["src", "core", "infrastructure", "worker", "vite.config.ts"]
+  "include": ["src", "core", "infrastructure", "vite.config.ts"]
 }

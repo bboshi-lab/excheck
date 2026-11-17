@@ -16,7 +16,9 @@ import {
   Rocket,
 } from "lucide-react";
 import { useBoard, useTaskMutation } from "./api";
-import { readiness, type Board, type Task } from "./domain/release";
+import type { Board } from "../core/domain/board";
+import type { Task } from "../core/domain/task";
+import { calculateReadiness as readiness } from "../core/domain/readiness";
 import { useFilters } from "./store";
 import { Button } from "./components/ui/button";
 function TaskForm({ close }: { close: () => void }) {
