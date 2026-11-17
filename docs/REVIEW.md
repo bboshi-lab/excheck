@@ -1,29 +1,54 @@
-# Self-review — Launchboard v0.1
+# 자체 리뷰와 검증 기록
 
-This is the author's self-review, not independent approval.
+이 문서는 작성자의 자체 리뷰와 근거를 정리한다. 독립적인 사용자 승인이나 아직 실행하지 않은 검사를 뜻하지 않는다. 각 PR의 변경 범위·검사 로그·GitHub 리뷰가 해당 변경의 근거다.
 
-## Findings and dispositions
+## 전면 정비의 추적 경로
 
-| Finding                                                              | Severity       | Resolution                                                                                                  |
-| -------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------- |
-| HashRouter would interpret the hero's `#checklist` anchor as a route | Medium         | Use a native button and scrollIntoView; browser regression now clicks it before task flows                  |
-| Root-only browser checks miss Pages asset/service-worker paths       | Medium         | Add BASE_PATH support to the browser harness; both viewports exercised under `/excheck/`; CI uses that path |
-| Preview's base path must match build's base path                     | Medium         | Document and exercise the same environment variable for both; initial local 404 was a preview mismatch      |
-| Shared Zustand filter leaked between integration tests               | Test isolation | Reset filter alongside MSW board and QueryClient lifecycle                                                  |
-| MSW 3 renamed the unhandled-request option                           | Type/build     | Use supported onUnhandledFrame; strict build verifies compatibility                                         |
-| A naive Worker in-memory board would lose updates and data           | Design         | Durable Object storage with serialized mutations; storage-double tests plus local workerd functional smoke  |
-| Failed writes could visually claim success                           | Medium         | Pessimistic mutation with alert and unchanged board; failure regression test                                |
+1. [PR #3](https://github.com/bboshi-lab/excheck/pull/3): 프로젝트 작업 지침과 React·Git 스킬
+2. [이슈 #4](https://github.com/bboshi-lab/excheck/issues/4) → [PR #5](https://github.com/bboshi-lab/excheck/pull/5): 공통 코어·MSW·Worker 어댑터 분리
+3. [이슈 #6](https://github.com/bboshi-lab/excheck/issues/6) → [PR #7](https://github.com/bboshi-lab/excheck/pull/7): 한국어 UI·표현 계층·컴포넌트 분해
+4. [이슈 #8](https://github.com/bboshi-lab/excheck/issues/8) → [PR #9](https://github.com/bboshi-lab/excheck/pull/9): 별칭·import·품질 규칙·CI 판별·접근성 검사
 
-## Local evidence
+초기 단일 파일 UI와 영어 문서, 초기 테스트 9개 결과는 현재 구조의 검증 기준으로 사용하지 않는다. 과거 실행 기록은 해당 PR에서 확인할 수 있다.
 
-- Vitest: 3 files, 9 tests passed (domain, React/MSW, Hono Worker).
-- TypeScript strict check and Vite production build passed.
-- Wrangler dry-run bundle passed with no Cloudflare account.
-- Local workerd: health, create (201), complete and persisted read passed.
-- Playwright: desktop and 390px mobile flows passed at root and `/excheck/`; covers add, toggle, navigation, refresh/reset and overflow.
-- Desktop/mobile screenshots inspected; no browser JavaScript errors in screenshot run.
-- Remote CI/deployment status is recorded in the PR/checks, not inferred from these local results.
+## 발견 사항과 반영
 
-## Remaining limitations
+- **코어와 환경 결합**: Worker의 프런트엔드 소스 의존과 실행 환경별 보드 처리를 공통 도메인·응용·포트·계약으로 분리했다. MSW와 Worker가 공통 Hono API를 사용한다.
+- **저장 실패·동시 요청**: 저장소가 초안을 격리하고 조회·변경을 직렬화한다. 실패 후 재시도, 동시 요청, 실제 로컬 workerd 재시작 복원을 검증했다.
+- **표현 책임 혼합**: 페이지·View는 의미 있는 컴포넌트를 조합하고 HTML·스타일은 명명된 레이아웃·말단으로 내렸다. 기능 컴포넌트와 외부 shadcn 원본의 예외를 구분했다.
+- **import 가독성과 계층 위반**: 단일 별칭 설정·최소 두 선언 그룹·허용 의존 방향을 lint로 연결했다. 실제 별칭 순환 파일을 만들어 순환 검사가 실패하는지 확인했다.
+- **문서 전용 CI**: `[skip ci]` 대신 변경 경로를 판별한다. 실제 임시 Git 저장소의 코드→문서 이름 변경도 전체 검사로 분류하는지 검증했다.
+- **숨긴 차트 포커스·문자 대비**: axe가 발견한 원형 차트 내부 포커스와 사이드바 문자 대비를 수정했다. axe 규칙을 비활성화하지 않았다.
+- **문서와 코드의 불일치**: 현재 단계에서 단일 App.tsx·GSAP 미사용·검사 후 즉시 병합 등의 오래된 설명을 제거하고, 명세·설계·승인·검증·배포 절차를 맞춘다.
 
-No auth or production security boundary; don't expose the reference backend as a real team service. No cross-tab persistence in the mock demo, by design. Worker tests use a storage double plus a local runtime, not the Cloudflare production platform. No independent human review or branch protection is claimed. Application publication to Pages needs the GitHub integration's Pages permissions or a repository admin to enable the site.
+## 코드 기준선의 검증 근거
+
+다음은 **2026-11-17, PR #9의 `53ce3eb`**에서 실제 수행한 결과다. 이후 문서 정리나 미래 변경에서 다시 수행한 결과로 해석하지 않는다.
+
+- `pnpm format:check`: 통과
+- `BASE_PATH=/excheck/ pnpm check`: lint, 앱 테스트 84개, 규칙·CI 판별 테스트 67개, 세 타입 환경 검사와 production 빌드 통과
+- Pages 경로 Playwright: 데스크톱·모바일 12개 통과, 대시보드·입력 대화상자 axe 포함
+- `pnpm worker:check`: 로컬 번들 통과
+- `pnpm worker:test:local`: 생성·완료·입력 거절·동시 요청·프로세스 재시작 복원 통과
+- 최신 커밋의 [push CI](https://github.com/bboshi-lab/excheck/actions/runs/44117572710)와 [PR CI](https://github.com/bboshi-lab/excheck/actions/runs/44118240300): 통과
+
+이 결과는 실제 Cloudflare 계정·운영 플랫폼 검증이나 모든 접근성 항목의 보장을 뜻하지 않는다. PR #9의 병합은 GitHub 이력에서 확인하며, 이 문서의 자체 리뷰가 승인한 것은 아니다.
+
+## 이후 PR의 리뷰 기록
+
+각 PR의 한국어 본문과 리뷰 답변에 다음을 남긴다. 테스트 개수만 바뀔 때 이 문서의 과거 기록을 현재 수치로 덮어쓰지 않는다.
+
+- 문제·승인 범위와 최종 구현, 주요 파일·관련 이슈
+- 자체 리뷰에서 발견한 문제와 수정 근거
+- 실제 수행한 검사와 결과, 생략·실패·차단 사유
+- 문서 전용이면 경로·예시·상호 참조·지침 일관성 검토 결과
+- 남은 제한·후속 제안, 사용자 리뷰·병합·배포의 실제 상태
+
+## 남은 한계
+
+- 인증·사용자 격리·운영 보안과 다중 프로젝트는 구현하지 않는다.
+- MSW 상태는 새로고침 시 초기화되며 탭·사용자 간 공유되지 않는다.
+- 로컬 Worker와 브라우저 데모는 별도 데이터다. 실제 Cloudflare 연결·원격 배포는 수행하지 않는다.
+- 자동 규칙이 이름의 설명력·분리의 적절성·모든 동적 JSX·실제 사용성을 대신 판단하지 않는다.
+- 파일·함수 크기와 복잡도의 수치 상한은 미합의다. 수치가 없다는 이유로 책임 분리를 생략하지 않는다.
+- 브랜치 보호·저장소 권한은 실제 GitHub 설정으로 확인해야 한다. 이 문서만으로 강제 적용을 주장하지 않는다.
