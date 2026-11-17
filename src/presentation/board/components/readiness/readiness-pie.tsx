@@ -27,8 +27,9 @@ export function ReadinessPie({ readiness }: ReadinessPieProps) {
       className="chart-pulse absolute inset-0 aspect-square size-full"
       aria-hidden="true"
     >
-      <PieChart>
+      <PieChart accessibilityLayer={false}>
         <Pie
+          rootTabIndex={-1}
           data={data}
           dataKey="count"
           nameKey="name"

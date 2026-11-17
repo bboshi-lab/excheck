@@ -4,7 +4,7 @@ type NavigationIndexProps = {
 
 export function NavigationIndex({ index }: NavigationIndexProps) {
   return (
-    <span className="ml-auto text-[9px] opacity-40" aria-hidden="true">
+    <span className="ml-auto text-[9px] text-muted-foreground" aria-hidden="true">
       {index}
     </span>
   )
