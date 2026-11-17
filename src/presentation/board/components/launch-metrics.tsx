@@ -2,6 +2,7 @@ import { Activity, CheckCheck, Flag } from "lucide-react"
 import type { Board } from "../../../../core/domain/board"
 import { calculateReadiness } from "../../../../core/domain/readiness"
 import { MetricCard } from "./metric-card"
+import { LaunchMetricsLayout } from "./metrics/launch-metrics-layout"
 
 type LaunchMetricsProps = {
   board: Board
@@ -11,7 +12,7 @@ export function LaunchMetrics({ board }: LaunchMetricsProps) {
   const readiness = calculateReadiness(board.tasks)
 
   return (
-    <section className="grid grid-cols-3 gap-3 sm:gap-4" aria-label="출시 지표">
+    <LaunchMetricsLayout>
       <MetricCard
         label="완료한 체크"
         value={readiness.complete}
@@ -34,6 +35,6 @@ export function LaunchMetrics({ board }: LaunchMetricsProps) {
         icon={Activity}
         accent="cyan"
       />
-    </section>
+    </LaunchMetricsLayout>
   )
 }
