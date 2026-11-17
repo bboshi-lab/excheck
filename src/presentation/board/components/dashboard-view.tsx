@@ -22,7 +22,7 @@ export function DashboardView({ board }: DashboardViewProps) {
       <LaunchMetrics board={board} />
       <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] xl:gap-6">
         <TaskChecklist board={board} />
-        <div className="grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-1 xl:gap-6">
+        <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-1 xl:gap-6">
           <CategoryProgressChart tasks={board.tasks} />
           <div className="grid gap-2">
             <ActivityFeed activity={board.activity} compact />

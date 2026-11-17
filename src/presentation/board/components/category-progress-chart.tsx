@@ -21,7 +21,7 @@ export function CategoryProgressChart({ tasks }: CategoryProgressChartProps) {
   const data = summarizeCategories(tasks).map((summary) => ({ ...summary, label: categoryLabels[summary.category] }))
 
   return (
-    <Card className="gap-3 border-white/7 bg-card/85" data-entrance>
+    <Card className="min-w-0 gap-3 border-white/7 bg-card/85" data-entrance>
       <CardHeader className="flex flex-row items-start justify-between gap-3">
         <div>
           <CardDescription className="mb-2 text-[10px] tracking-widest">분야별 진행 상황</CardDescription>
@@ -32,7 +32,12 @@ export function CategoryProgressChart({ tasks }: CategoryProgressChartProps) {
         <ChartNoAxesCombined className="size-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-40 w-full" role="img" aria-label="분야별 완료·미완료 체크 수">
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-40 min-w-0 w-full"
+          role="img"
+          aria-label="분야별 완료·미완료 체크 수"
+        >
           <BarChart
             data={data}
             layout="vertical"
