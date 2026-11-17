@@ -1,9 +1,10 @@
 import assert from "node:assert/strict"
 import { execFileSync } from "node:child_process"
-import { mkdtempSync, mkdirSync, renameSync, rmSync, writeFileSync } from "node:fs"
+import { mkdtempSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { test } from "node:test"
+import { fileURLToPath } from "node:url"
 import { comparisonBase, isDocsOnlyChange, readChangedPaths } from "./change-scope.mjs"
 
 for (const files of [
@@ -43,11 +44,21 @@ test("최초 push·수동 실행·잘못된 이벤트는 전체 검사한다", (
   assert.equal(comparisonBase("push", { before: "--malicious-option" }), null)
 })
 
-test("코드를 문서로 이름 바꿔도 삭제된 실행 파일을 포함해 전체 검사한다", () => {
+test("실제 Git과 CI 진입점에서 문서 전용과 코드 이름 변경을 구분한다", () => {
   const directory = mkdtempSync(path.join(os.tmpdir(), "excheck-change-scope-"))
   const git = (args) => execFileSync("git", args, { cwd: directory, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] })
   const commit = (message) =>
-    git(["-c", "user.name=검증", "-c", "user.email=test@example.invalid", "commit", "-qm", message])
+    git([
+      "-c",
+      "user.name=검증",
+      "-c",
+      "user.email=test@example.invalid",
+      "-c",
+      "commit.gpgsign=false",
+      "commit",
+      "-qm",
+      message,
+    ])
 
   try {
     git(["init", "-q"])
@@ -66,6 +77,28 @@ test("코드를 문서로 이름 바꿔도 삭제된 실행 파일을 포함해 
 
     assert.deepEqual(files.sort(), ["docs/새 문서.md", "src/old.js"])
     assert.equal(isDocsOnlyChange(files), false)
+
+    const eventPath = path.join(directory, "event.json")
+    const outputPath = path.join(directory, "action-output.txt")
+    const classify = (before) => {
+      writeFileSync(eventPath, JSON.stringify({ before }))
+      writeFileSync(outputPath, "")
+      execFileSync(process.execPath, [fileURLToPath(new URL("./classify-changes.mjs", import.meta.url))], {
+        cwd: directory,
+        env: { ...process.env, GITHUB_EVENT_NAME: "push", GITHUB_EVENT_PATH: eventPath, GITHUB_OUTPUT: outputPath },
+      })
+
+      return readFileSync(outputPath, "utf8")
+    }
+
+    assert.equal(classify(base), "docs_only=false\n")
+
+    const docsBase = git(["rev-parse", "HEAD"]).trim()
+    writeFileSync(path.join(directory, "README.md"), "# 문서만 변경\n")
+    git(["add", "README.md"])
+    commit("docs")
+
+    assert.equal(classify(docsBase), "docs_only=true\n")
   } finally {
     rmSync(directory, { recursive: true, force: true })
   }
