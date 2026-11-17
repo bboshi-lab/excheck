@@ -1,8 +1,7 @@
-import type { Task } from "../../../../../core/domain/task"
-
-import type { TaskFilter } from "../../state/filter-store"
-import { ChecklistItemsPanelLayout } from "./checklist-items-panel-layout"
-import { TaskList } from "./task-list"
+import type { Task } from "@core/domain/task"
+import { ChecklistItemsPanelLayout } from "@presentation/board/components/checklist/checklist-items-panel-layout"
+import { TaskList } from "@presentation/board/components/checklist/task-list"
+import type { TaskFilter } from "@presentation/board/state/filter-store"
 
 type ChecklistItemsPanelProps = {
   panelId: string

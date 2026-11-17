@@ -1,8 +1,9 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query"
 import type { ReactNode } from "react"
-import type { BoardGateway } from "../../core/application/ports/board-gateway"
-import { BoardGatewayProvider } from "../presentation/board/context/board-gateway-provider"
-import { TooltipProvider } from "../presentation/ui/tooltip"
+
+import type { BoardGateway } from "@core/application/ports/board-gateway"
+import { BoardGatewayProvider } from "@presentation/board/context/board-gateway-provider"
+import { TooltipProvider } from "@ui/tooltip"
 
 type AppProvidersProps = {
   children: ReactNode

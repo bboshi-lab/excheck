@@ -1,8 +1,6 @@
-import { TASK_CATEGORIES } from "../../../../../core/domain/task"
-
-import { SelectContent, SelectItem } from "../../../ui/select"
-
-import { categoryLabels } from "../../labels"
+import { TASK_CATEGORIES } from "@core/domain/task"
+import { categoryLabels } from "@presentation/board/labels"
+import { SelectContent, SelectItem } from "@ui/select"
 
 export function TaskCategoryOptions() {
   return (

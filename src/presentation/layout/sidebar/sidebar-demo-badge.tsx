@@ -1,7 +1,6 @@
 import { CircleDot } from "lucide-react"
-
-import { Badge } from "../../ui/badge"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip"
+import { Badge } from "@ui/badge"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip"
 
 export function SidebarDemoBadge() {
   return (

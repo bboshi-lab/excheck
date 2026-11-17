@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-
-import { useReducedMotion } from "./use-reduced-motion"
-
-import { gsap } from "../lib/motion"
+import { useReducedMotion } from "@presentation/hooks/use-reduced-motion"
+import { gsap } from "@presentation/lib/motion"
 
 export function useAnimatedNumber(value: number) {
   const reducedMotion = useReducedMotion()

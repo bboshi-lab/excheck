@@ -4,11 +4,12 @@ import userEvent from "@testing-library/user-event"
 import { http, HttpResponse, delay } from "msw"
 import { MemoryRouter } from "react-router"
 import { describe, expect, it } from "vitest"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { createBoardHttpClient } from "../infrastructure/http/board-http-client"
-import { server } from "../test/setup"
-import { AppProviders } from "./app-providers"
-import { AppRoutes } from "./app-routes"
+
+import { AppProviders } from "@app/app-providers"
+import { AppRoutes } from "@app/app-routes"
+import { createBoardHttpClient } from "@client/http/board-http-client"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { server } from "@test/setup"
 
 function renderWorkspace(path = "/") {
   const client = new QueryClient({

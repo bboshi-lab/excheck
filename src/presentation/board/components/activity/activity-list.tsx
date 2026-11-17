@@ -1,8 +1,7 @@
-import type { Activity } from "../../../../../core/domain/board"
-
-import { ActivityEmptyState } from "./activity-empty-state"
-import { ActivityItem } from "./activity-item"
-import { ActivityListLayout } from "./activity-list-layout"
+import type { Activity } from "@core/domain/board"
+import { ActivityEmptyState } from "@presentation/board/components/activity/activity-empty-state"
+import { ActivityItem } from "@presentation/board/components/activity/activity-item"
+import { ActivityListLayout } from "@presentation/board/components/activity/activity-list-layout"
 
 type ActivityListProps = {
   activity: Activity[]

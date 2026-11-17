@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { MemoryBoardRepository } from "./memory-board-repository"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { MemoryBoardRepository } from "@infrastructure/persistence/memory-board-repository"
 
 describe("메모리 보드 저장소", () => {
   it("초기 입력 객체와 조회 결과를 저장 상태에서 분리한다", async () => {

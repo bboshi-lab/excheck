@@ -1,8 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-
-import type { CreateTaskInput } from "../../../../core/domain/task"
-
-import { useBoardGateway } from "../context/board-gateway-provider"
+import type { CreateTaskInput } from "@core/domain/task"
+import { useBoardGateway } from "@presentation/board/context/board-gateway-provider"
 
 const boardQueryKey = ["board"] as const
 

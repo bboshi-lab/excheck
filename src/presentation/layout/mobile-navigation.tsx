@@ -1,10 +1,8 @@
 import { useState } from "react"
-
-import { Sheet, SheetContent } from "../ui/sheet"
-
-import { MobileMenuHeader } from "./navigation/mobile-menu-header"
-import { MobileMenuLinks } from "./navigation/mobile-menu-links"
-import { MobileMenuTrigger } from "./navigation/mobile-menu-trigger"
+import { MobileMenuHeader } from "@presentation/layout/navigation/mobile-menu-header"
+import { MobileMenuLinks } from "@presentation/layout/navigation/mobile-menu-links"
+import { MobileMenuTrigger } from "@presentation/layout/navigation/mobile-menu-trigger"
+import { Sheet, SheetContent } from "@ui/sheet"
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false)

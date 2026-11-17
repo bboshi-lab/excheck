@@ -1,4 +1,4 @@
-import { useAnimatedNumber } from "../../../hooks/use-animated-number"
+import { useAnimatedNumber } from "@presentation/hooks/use-animated-number"
 
 type ReadinessNumberProps = {
   percent: number

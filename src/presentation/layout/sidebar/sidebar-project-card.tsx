@@ -1,8 +1,7 @@
 import { ArrowUpRight } from "lucide-react"
-
-import { ProjectAvatar } from "./project-avatar"
-import { ProjectSummary } from "./project-summary"
-import { SidebarProjectCardLayout } from "./sidebar-project-card-layout"
+import { ProjectAvatar } from "@presentation/layout/sidebar/project-avatar"
+import { ProjectSummary } from "@presentation/layout/sidebar/project-summary"
+import { SidebarProjectCardLayout } from "@presentation/layout/sidebar/sidebar-project-card-layout"
 
 export function SidebarProjectCard() {
   return (

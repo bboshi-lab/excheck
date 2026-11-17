@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@core/*": ["./core/*"],
+      "@infrastructure/*": ["./infrastructure/*"],
+      "@worker/*": ["./worker/*"],
+      "@app/*": ["./src/app/*"],
+      "@presentation/*": ["./src/presentation/*"],
+      "@ui/*": ["./src/presentation/ui/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@client/*": ["./src/infrastructure/*"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@test/*": ["./src/test/*"],
+      "@/*": ["./src/*"]
+    }
+  }
+}

@@ -1,6 +1,6 @@
-import { FooterMotto } from "./footer-motto"
-import { FooterSignature } from "./footer-signature"
-import { WorkspaceFooterLayout } from "./workspace-footer-layout"
+import { FooterMotto } from "@presentation/layout/shell/footer-motto"
+import { FooterSignature } from "@presentation/layout/shell/footer-signature"
+import { WorkspaceFooterLayout } from "@presentation/layout/shell/workspace-footer-layout"
 
 export function WorkspaceFooter() {
   return (

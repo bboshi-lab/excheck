@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router"
-import { AppShell } from "../presentation/layout/app-shell"
-import { DashboardPage } from "../presentation/pages/dashboard-page"
-import { ChecklistPage } from "../presentation/pages/checklist-page"
-import { ActivityPage } from "../presentation/pages/activity-page"
-import { NotFoundPage } from "../presentation/pages/not-found-page"
+import { AppShell } from "@presentation/layout/app-shell"
+import { ActivityPage } from "@presentation/pages/activity-page"
+import { ChecklistPage } from "@presentation/pages/checklist-page"
+import { DashboardPage } from "@presentation/pages/dashboard-page"
+import { NotFoundPage } from "@presentation/pages/not-found-page"
 
 export function AppRoutes() {
   return (

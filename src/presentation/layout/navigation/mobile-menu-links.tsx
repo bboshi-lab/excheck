@@ -1,5 +1,5 @@
-import { AppNavigation } from "../app-navigation"
-import { MobileMenuLinksLayout } from "./mobile-menu-links-layout"
+import { AppNavigation } from "@presentation/layout/app-navigation"
+import { MobileMenuLinksLayout } from "@presentation/layout/navigation/mobile-menu-links-layout"
 
 type MobileMenuLinksProps = {
   onNavigate: () => void

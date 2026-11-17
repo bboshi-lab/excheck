@@ -1,15 +1,11 @@
-import type { Board } from "../../../../core/domain/board"
-
-import { Card } from "../../ui/card"
-
-import { LiveAnnouncement } from "../../components/live-announcement"
-
-import { useChecklist } from "../hooks/use-checklist"
-
-import { ChecklistFilters } from "./checklist/checklist-filters"
-import { ChecklistHeader } from "./checklist/checklist-header"
-import { ChecklistItemsPanel } from "./checklist/checklist-items-panel"
-import { ChecklistProgress } from "./checklist/checklist-progress"
+import type { Board } from "@core/domain/board"
+import { ChecklistFilters } from "@presentation/board/components/checklist/checklist-filters"
+import { ChecklistHeader } from "@presentation/board/components/checklist/checklist-header"
+import { ChecklistItemsPanel } from "@presentation/board/components/checklist/checklist-items-panel"
+import { ChecklistProgress } from "@presentation/board/components/checklist/checklist-progress"
+import { useChecklist } from "@presentation/board/hooks/use-checklist"
+import { LiveAnnouncement } from "@presentation/components/live-announcement"
+import { Card } from "@ui/card"
 
 type TaskChecklistProps = {
   board: Board

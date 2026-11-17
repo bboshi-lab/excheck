@@ -1,7 +1,7 @@
 import { Hono } from "hono"
-import type { BoardGateway } from "../../core/application/ports/board-gateway"
-import { TaskNotFoundError } from "../../core/application/task-not-found-error"
-import { createTaskSchema, setTaskDoneSchema } from "../../core/contracts/task-contract"
+import type { BoardGateway } from "@core/application/ports/board-gateway"
+import { TaskNotFoundError } from "@core/application/task-not-found-error"
+import { createTaskSchema, setTaskDoneSchema } from "@core/contracts/task-contract"
 
 export function createBoardApi(board: BoardGateway, basePath = "/api") {
   const app = new Hono().basePath(basePath)

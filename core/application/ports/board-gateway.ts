@@ -1,5 +1,5 @@
-import type { Board } from "../../domain/board"
-import type { CreateTaskInput, Task } from "../../domain/task"
+import type { Board } from "@core/domain/board"
+import type { CreateTaskInput, Task } from "@core/domain/task"
 
 export type BoardGateway = {
   getBoard(): Promise<Board>

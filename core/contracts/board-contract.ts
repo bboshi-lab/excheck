@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { taskSchema } from "./task-contract"
+import { taskSchema } from "@core/contracts/task-contract"
 
 export const boardSchema = z.object({
   tasks: z.array(taskSchema),

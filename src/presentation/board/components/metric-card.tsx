@@ -1,10 +1,8 @@
 import type { LucideIcon } from "lucide-react"
-
-import { Card, CardContent } from "../../ui/card"
-
-import { MetricDescription } from "./metrics/metric-description"
-import { MetricHeading } from "./metrics/metric-heading"
-import { MetricValue } from "./metrics/metric-value"
+import { MetricDescription } from "@presentation/board/components/metrics/metric-description"
+import { MetricHeading } from "@presentation/board/components/metrics/metric-heading"
+import { MetricValue } from "@presentation/board/components/metrics/metric-value"
+import { Card, CardContent } from "@ui/card"
 
 type MetricCardProps = {
   label: string

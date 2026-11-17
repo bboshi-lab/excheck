@@ -1,9 +1,9 @@
-import "@testing-library/jest-dom/vitest"
-import { afterAll, afterEach, beforeAll, vi } from "vitest"
-import { setupServer } from "msw/node"
 import { cleanup } from "@testing-library/react"
-import { useBoardFilter } from "../presentation/board/state/filter-store"
-import { handlers, resetMockBoard } from "../mocks/handlers"
+import { setupServer } from "msw/node"
+import { afterAll, afterEach, beforeAll, vi } from "vitest"
+import { handlers, resetMockBoard } from "@mocks/handlers"
+import { useBoardFilter } from "@presentation/board/state/filter-store"
+import "@testing-library/jest-dom/vitest"
 
 export const server = setupServer(...handlers)
 

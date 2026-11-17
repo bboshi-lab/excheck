@@ -1,9 +1,7 @@
-import type { Readiness } from "../../../../../core/domain/readiness"
-
-import { Progress } from "../../../ui/progress"
-
-import { ChecklistProgressLayout } from "./checklist-progress-layout"
-import { ChecklistProgressSummary } from "./checklist-progress-summary"
+import type { Readiness } from "@core/domain/readiness"
+import { ChecklistProgressLayout } from "@presentation/board/components/checklist/checklist-progress-layout"
+import { ChecklistProgressSummary } from "@presentation/board/components/checklist/checklist-progress-summary"
+import { Progress } from "@ui/progress"
 
 type ChecklistProgressProps = {
   readiness: Readiness

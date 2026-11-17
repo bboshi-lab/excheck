@@ -1,8 +1,6 @@
 import { useRef } from "react"
-
-import { useReducedMotion } from "./use-reduced-motion"
-
-import { gsap, useGSAP } from "../lib/motion"
+import { useReducedMotion } from "@presentation/hooks/use-reduced-motion"
+import { gsap, useGSAP } from "@presentation/lib/motion"
 
 export function useTaskTransition(done: boolean) {
   const row = useRef<HTMLLIElement>(null)

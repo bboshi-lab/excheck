@@ -1,15 +1,15 @@
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
 import { HashRouter } from "react-router"
-import { AppProviders } from "./app/app-providers"
-import { AppRoutes } from "./app/app-routes"
-import { createQueryClient } from "./app/create-query-client"
-import { createBoardHttpClient } from "./infrastructure/http/board-http-client"
-import "./styles.css"
+import { AppProviders } from "@app/app-providers"
+import { AppRoutes } from "@app/app-routes"
+import { createQueryClient } from "@app/create-query-client"
+import { createBoardHttpClient } from "@client/http/board-http-client"
+import "@/styles.css"
 
 async function start() {
   if ((import.meta.env.VITE_API_MODE || "mock") === "mock") {
-    const { worker } = await import("./mocks/browser")
+    const { worker } = await import("@mocks/browser")
 
     await worker.start({
       serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },

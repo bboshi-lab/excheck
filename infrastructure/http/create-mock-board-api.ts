@@ -1,9 +1,9 @@
 import { delay, http } from "msw"
-import { BoardService } from "../../core/application/board-service"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { createBoardApi } from "./create-board-api"
-import { MemoryBoardRepository } from "../persistence/memory-board-repository"
-import { systemBoardRuntime } from "../runtime/system-board-runtime"
+import { BoardService } from "@core/application/board-service"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { createBoardApi } from "@infrastructure/http/create-board-api"
+import { MemoryBoardRepository } from "@infrastructure/persistence/memory-board-repository"
+import { systemBoardRuntime } from "@infrastructure/runtime/system-board-runtime"
 
 type MockApiOptions = {
   origin: string

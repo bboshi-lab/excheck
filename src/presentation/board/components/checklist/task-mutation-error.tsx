@@ -1,4 +1,4 @@
-import { InlineError } from "../../../components/inline-error"
+import { InlineError } from "@presentation/components/inline-error"
 
 type TaskMutationErrorProps = {
   error: string | null

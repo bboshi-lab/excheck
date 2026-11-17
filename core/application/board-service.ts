@@ -1,9 +1,9 @@
-import { appendActivity } from "../domain/board"
-import type { CreateTaskInput, Task } from "../domain/task"
-import type { BoardGateway } from "./ports/board-gateway"
-import type { BoardRepository } from "./ports/board-repository"
-import type { BoardRuntime } from "./ports/board-runtime"
-import { TaskNotFoundError } from "./task-not-found-error"
+import type { BoardGateway } from "@core/application/ports/board-gateway"
+import type { BoardRepository } from "@core/application/ports/board-repository"
+import type { BoardRuntime } from "@core/application/ports/board-runtime"
+import { TaskNotFoundError } from "@core/application/task-not-found-error"
+import { appendActivity } from "@core/domain/board"
+import type { CreateTaskInput, Task } from "@core/domain/task"
 
 export class BoardService implements BoardGateway {
   constructor(

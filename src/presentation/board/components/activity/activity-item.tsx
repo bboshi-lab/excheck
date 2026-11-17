@@ -1,9 +1,8 @@
-import type { Activity } from "../../../../../core/domain/board"
-
-import { ActivityConnector } from "./activity-connector"
-import { ActivityDetails } from "./activity-details"
-import { ActivityItemLayout } from "./activity-item-layout"
-import { ActivityMarker } from "./activity-marker"
+import type { Activity } from "@core/domain/board"
+import { ActivityConnector } from "@presentation/board/components/activity/activity-connector"
+import { ActivityDetails } from "@presentation/board/components/activity/activity-details"
+import { ActivityItemLayout } from "@presentation/board/components/activity/activity-item-layout"
+import { ActivityMarker } from "@presentation/board/components/activity/activity-marker"
 
 type ActivityItemProps = {
   event: Activity

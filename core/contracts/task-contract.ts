@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { TASK_CATEGORIES, TASK_TITLE_MAX_LENGTH, TASK_TITLE_MIN_LENGTH } from "../domain/task"
+import { TASK_CATEGORIES, TASK_TITLE_MAX_LENGTH, TASK_TITLE_MIN_LENGTH } from "@core/domain/task"
 
 export const createTaskSchema = z.object({
   title: z.string().trim().min(TASK_TITLE_MIN_LENGTH).max(TASK_TITLE_MAX_LENGTH),

@@ -1,9 +1,7 @@
-import { TASK_CATEGORIES } from "../../../../core/domain/task"
-
-import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs"
-
-import { categoryLabels } from "../labels"
-import { isTaskFilter, type TaskFilter } from "../state/filter-store"
+import { TASK_CATEGORIES } from "@core/domain/task"
+import { categoryLabels } from "@presentation/board/labels"
+import { isTaskFilter, type TaskFilter } from "@presentation/board/state/filter-store"
+import { Tabs, TabsList, TabsTrigger } from "@ui/tabs"
 
 type TaskFiltersProps = {
   value: TaskFilter

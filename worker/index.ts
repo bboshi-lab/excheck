@@ -1,10 +1,10 @@
-import { BoardService } from "../core/application/board-service"
-import type { Board } from "../core/domain/board"
-import { createDemoBoard } from "../core/fixtures/create-demo-board"
-import { createBoardApi } from "../infrastructure/http/create-board-api"
-import { systemBoardRuntime } from "../infrastructure/runtime/system-board-runtime"
-import { createWorkerApp } from "./create-worker-app"
-import { DurableBoardRepository } from "./infrastructure/durable-board-repository"
+import { BoardService } from "@core/application/board-service"
+import type { Board } from "@core/domain/board"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { createBoardApi } from "@infrastructure/http/create-board-api"
+import { systemBoardRuntime } from "@infrastructure/runtime/system-board-runtime"
+import { createWorkerApp } from "@worker/create-worker-app"
+import { DurableBoardRepository } from "@worker/infrastructure/durable-board-repository"
 
 type Bindings = { BOARD: DurableObjectNamespace }
 

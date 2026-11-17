@@ -1,10 +1,9 @@
 import type { LucideIcon } from "lucide-react"
 import { NavLink } from "react-router"
 
-import { cn } from "../../../shared/lib/utils"
-
-import { NavigationIndex } from "./navigation-index"
-import { NavigationLabel } from "./navigation-label"
+import { NavigationIndex } from "@presentation/layout/navigation/navigation-index"
+import { NavigationLabel } from "@presentation/layout/navigation/navigation-label"
+import { cn } from "@shared/lib/utils"
 
 type NavigationItemProps = {
   path: string

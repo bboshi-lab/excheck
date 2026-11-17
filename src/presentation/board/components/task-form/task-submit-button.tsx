@@ -1,6 +1,5 @@
-import { Button } from "../../../ui/button"
-
-import { TaskSubmitIcon } from "./task-submit-icon"
+import { TaskSubmitIcon } from "@presentation/board/components/task-form/task-submit-icon"
+import { Button } from "@ui/button"
 
 type TaskSubmitButtonProps = {
   pending: boolean

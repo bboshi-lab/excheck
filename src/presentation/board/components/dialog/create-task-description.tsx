@@ -1,4 +1,4 @@
-import { DialogDescription } from "../../../ui/dialog"
+import { DialogDescription } from "@ui/dialog"
 
 export function CreateTaskDescription() {
   return (

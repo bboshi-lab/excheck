@@ -1,4 +1,4 @@
-import type { TaskCategory } from "../../../core/domain/task"
+import type { TaskCategory } from "@core/domain/task"
 
 export const categoryLabels: Record<TaskCategory, string> = {
   Engineering: "개발",

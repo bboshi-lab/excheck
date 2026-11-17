@@ -1,8 +1,6 @@
-import type { TaskCategory } from "../../../../../core/domain/task"
-
-import { Badge } from "../../../ui/badge"
-
-import { categoryLabels, categoryBadgeClasses } from "../../labels"
+import type { TaskCategory } from "@core/domain/task"
+import { categoryLabels, categoryBadgeClasses } from "@presentation/board/labels"
+import { Badge } from "@ui/badge"
 
 type TaskCategoryBadgeProps = {
   category: TaskCategory

@@ -1,8 +1,8 @@
-import { PageDescription } from "./page-description"
-import { PageEyebrow } from "./page-eyebrow"
-import type { PageHeadingContent } from "./page-heading-content"
-import { PageHeadingTextLayout } from "./page-heading-text-layout"
-import { PageTitle } from "./page-title"
+import { PageDescription } from "@presentation/layout/shell/page-description"
+import { PageEyebrow } from "@presentation/layout/shell/page-eyebrow"
+import type { PageHeadingContent } from "@presentation/layout/shell/page-heading-content"
+import { PageHeadingTextLayout } from "@presentation/layout/shell/page-heading-text-layout"
+import { PageTitle } from "@presentation/layout/shell/page-title"
 
 type PageHeadingTextProps = {
   content: PageHeadingContent

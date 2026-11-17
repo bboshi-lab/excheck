@@ -1,6 +1,5 @@
-import { DialogHeader, DialogTitle } from "../../../ui/dialog"
-
-import { CreateTaskDescription } from "./create-task-description"
+import { CreateTaskDescription } from "@presentation/board/components/dialog/create-task-description"
+import { DialogHeader, DialogTitle } from "@ui/dialog"
 
 export function CreateTaskHeader() {
   return (

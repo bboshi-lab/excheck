@@ -1,7 +1,7 @@
-import { useBoard } from "../board/api/board-hooks"
-import { ActivityFeed } from "../board/components/activity-feed"
-import { BoardQueryBoundary } from "../board/components/board-query-boundary"
-import { ActivityPageLayout } from "./layouts/activity-page-layout"
+import { useBoard } from "@presentation/board/api/board-hooks"
+import { ActivityFeed } from "@presentation/board/components/activity-feed"
+import { BoardQueryBoundary } from "@presentation/board/components/board-query-boundary"
+import { ActivityPageLayout } from "@presentation/pages/layouts/activity-page-layout"
 
 export function ActivityPage() {
   const query = useBoard()

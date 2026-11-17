@@ -1,7 +1,6 @@
 import { ArrowLeft } from "lucide-react"
 import { Link } from "react-router"
-
-import { Button } from "../../ui/button"
+import { Button } from "@ui/button"
 
 export function ReturnToDashboardLink() {
   return (

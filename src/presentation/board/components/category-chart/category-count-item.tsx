@@ -1,6 +1,5 @@
-import type { CategorySummary } from "../../../../../core/domain/board-metrics"
-
-import { categoryLabels } from "../../labels"
+import type { CategorySummary } from "@core/domain/board-metrics"
+import { categoryLabels } from "@presentation/board/labels"
 
 type CategoryCountItemProps = {
   summary: CategorySummary

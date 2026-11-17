@@ -1,8 +1,7 @@
-import type { Activity } from "../../../../../core/domain/board"
-
-import { ActivityFeed } from "../activity-feed"
-import { ActivityHistoryLink } from "../activity/activity-history-link"
-import { DashboardActivityLayout } from "./dashboard-activity-layout"
+import type { Activity } from "@core/domain/board"
+import { ActivityFeed } from "@presentation/board/components/activity-feed"
+import { ActivityHistoryLink } from "@presentation/board/components/activity/activity-history-link"
+import { DashboardActivityLayout } from "@presentation/board/components/dashboard/dashboard-activity-layout"
 
 type DashboardActivityProps = {
   activity: Activity[]

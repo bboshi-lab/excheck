@@ -1,10 +1,7 @@
 import { Pie, PieChart } from "recharts"
-
-import type { Readiness } from "../../../../../core/domain/readiness"
-
-import { ChartContainer, type ChartConfig } from "../../../ui/chart"
-
-import { useReducedMotion } from "../../../hooks/use-reduced-motion"
+import type { Readiness } from "@core/domain/readiness"
+import { useReducedMotion } from "@presentation/hooks/use-reduced-motion"
+import { ChartContainer, type ChartConfig } from "@ui/chart"
 
 const chartConfig = {
   complete: { label: "완료", color: "var(--chart-1)" },

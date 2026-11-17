@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
-
-import { Card, CardContent } from "../../../ui/card"
+import { Card, CardContent } from "@ui/card"
 
 type BoardErrorLayoutProps = {
   children: ReactNode

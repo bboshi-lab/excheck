@@ -1,9 +1,7 @@
-import type { Activity } from "../../../../../core/domain/board"
-
-import { CardContent } from "../../../ui/card"
-
-import { ActivityList } from "./activity-list"
-import { ActivityRetentionNote } from "./activity-retention-note"
+import type { Activity } from "@core/domain/board"
+import { ActivityList } from "@presentation/board/components/activity/activity-list"
+import { ActivityRetentionNote } from "@presentation/board/components/activity/activity-retention-note"
+import { CardContent } from "@ui/card"
 
 type ActivityFeedContentProps = {
   activity: Activity[]
