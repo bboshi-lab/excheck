@@ -1,6 +1,7 @@
 import { useBoard } from "../board/api/board-hooks"
 import { BoardQueryBoundary } from "../board/components/board-query-boundary"
 import { ActivityFeed } from "../board/components/activity-feed"
+import { ActivityPageLayout } from "./layouts/activity-page-layout"
 
 export function ActivityPage() {
   const query = useBoard()
@@ -8,9 +9,9 @@ export function ActivityPage() {
   return (
     <BoardQueryBoundary query={query}>
       {query.data && (
-        <div className="max-w-3xl">
+        <ActivityPageLayout>
           <ActivityFeed activity={query.data.activity} />
-        </div>
+        </ActivityPageLayout>
       )}
     </BoardQueryBoundary>
   )

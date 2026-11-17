@@ -3,6 +3,7 @@ import { BoardQueryBoundary } from "../board/components/board-query-boundary"
 import { TaskChecklist } from "../board/components/task-checklist"
 import { CategoryProgressChart } from "../board/components/category-progress-chart"
 import { useSectionEntrance } from "../hooks/use-section-entrance"
+import { ChecklistPageLayout } from "./layouts/checklist-page-layout"
 
 export function ChecklistPage() {
   const query = useBoard()
@@ -11,10 +12,10 @@ export function ChecklistPage() {
   return (
     <BoardQueryBoundary query={query}>
       {query.data && (
-        <div ref={scope} className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
+        <ChecklistPageLayout ref={scope}>
           <TaskChecklist board={query.data} />
           <CategoryProgressChart tasks={query.data.tasks} />
-        </div>
+        </ChecklistPageLayout>
       )}
     </BoardQueryBoundary>
   )
