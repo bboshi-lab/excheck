@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest"
-import { BoardService } from "../../core/application/board-service"
-import type { Board } from "../../core/domain/board"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { DurableBoardRepository } from "../../worker/infrastructure/durable-board-repository"
-import { systemBoardRuntime } from "../runtime/system-board-runtime"
-import { createBoardApi } from "./create-board-api"
+import { BoardService } from "@core/application/board-service"
+import type { Board } from "@core/domain/board"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { createBoardApi } from "@infrastructure/http/create-board-api"
+import { systemBoardRuntime } from "@infrastructure/runtime/system-board-runtime"
+import { DurableBoardRepository } from "@worker/infrastructure/durable-board-repository"
 
 describe("HTTP 저장 오류 경계", () => {
   it("저장 실패의 내부 내용을 노출하지 않고 재시도를 허용한다", async () => {
@@ -12,13 +12,15 @@ describe("HTTP 저장 오류 경계", () => {
     let saved: Board | undefined
     const repository = new DurableBoardRepository(
       {
-        read: async () => saved,
-        write: async (board) => {
+        read: () => Promise.resolve(saved),
+        write: (board) => {
           if (failWrite) {
-            throw new Error("Internal storage detail")
+            return Promise.reject(new Error("Internal storage detail"))
           }
 
           saved = structuredClone(board)
+
+          return Promise.resolve()
         },
       },
       createDemoBoard,

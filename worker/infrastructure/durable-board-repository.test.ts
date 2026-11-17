@@ -1,15 +1,17 @@
 import { describe, expect, it } from "vitest"
-import type { Board } from "../../core/domain/board"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { DurableBoardRepository, type BoardSnapshotStorage } from "./durable-board-repository"
+import type { Board } from "@core/domain/board"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { DurableBoardRepository, type BoardSnapshotStorage } from "@worker/infrastructure/durable-board-repository"
 
 function createStorage(): BoardSnapshotStorage {
   let saved: Board | undefined
 
   return {
-    read: async () => saved,
-    write: async (board) => {
+    read: () => Promise.resolve(saved),
+    write: (board) => {
       saved = structuredClone(board)
+
+      return Promise.resolve()
     },
   }
 }
@@ -48,7 +50,7 @@ describe("영속 보드 저장소 어댑터", () => {
     let failNext = true
     const repository = new DurableBoardRepository(
       {
-        read: persisted.read,
+        read: () => persisted.read(),
         write: async (board) => {
           if (failNext) {
             failNext = false
@@ -86,7 +88,7 @@ describe("영속 보드 저장소 어댑터", () => {
     })
     const repository = new DurableBoardRepository(
       {
-        read: persisted.read,
+        read: () => persisted.read(),
         write: async (board) => {
           await gate
           await persisted.write(board)
