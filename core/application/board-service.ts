@@ -26,7 +26,7 @@ export class BoardService implements BoardGateway {
       board.tasks.push(task)
       appendActivity(board, {
         id: this.runtime.createId(),
-        message: `Added “${task.title}”`,
+        message: `추가: “${task.title}”`,
         at: this.runtime.now(),
       })
 
@@ -46,7 +46,7 @@ export class BoardService implements BoardGateway {
 
       appendActivity(board, {
         id: this.runtime.createId(),
-        message: `${done ? "Completed" : "Reopened"} “${task.title}”`,
+        message: `${done ? "완료" : "재개"}: “${task.title}”`,
         at: this.runtime.now(),
       })
 

@@ -14,7 +14,7 @@ export function createBoardApi(board: BoardGateway, basePath = "/api") {
     const input = createTaskSchema.safeParse(body)
 
     if (!input.success) {
-      return context.json({ error: "Use a title of 3–100 characters and a valid category." }, 400)
+      return context.json({ error: "제목은 양끝 공백을 제외한 3~100자로 입력하고 올바른 분야를 선택해 주세요." }, 400)
     }
 
     return context.json(await board.createTask(input.data), 201)
@@ -25,19 +25,19 @@ export function createBoardApi(board: BoardGateway, basePath = "/api") {
     const input = setTaskDoneSchema.safeParse(body)
 
     if (!input.success) {
-      return context.json({ error: "A boolean done value is required." }, 400)
+      return context.json({ error: "완료 여부는 true 또는 false여야 합니다." }, 400)
     }
 
     return context.json(await board.setTaskDone(context.req.param("id"), input.data.done))
   })
 
-  app.notFound((context) => context.json({ error: "Not found." }, 404))
+  app.notFound((context) => context.json({ error: "요청한 경로를 찾을 수 없습니다." }, 404))
   app.onError((error, context) => {
     if (error instanceof TaskNotFoundError) {
       return context.json({ error: error.message }, 404)
     }
 
-    return context.json({ error: "Unable to update the workspace." }, 500)
+    return context.json({ error: "워크스페이스를 저장하지 못했습니다. 다시 시도해 주세요." }, 500)
   })
 
   return app

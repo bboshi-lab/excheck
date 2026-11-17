@@ -35,7 +35,7 @@ describe("HTTP 저장 오류 경계", () => {
 
     expect(failure.status).toBe(500)
     expect(await failure.json()).toEqual({
-      error: "Unable to update the workspace.",
+      error: "워크스페이스를 저장하지 못했습니다. 다시 시도해 주세요.",
     })
     expect(await repository.read()).toEqual(createDemoBoard())
 

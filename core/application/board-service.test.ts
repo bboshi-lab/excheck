@@ -38,7 +38,7 @@ describe("보드 응용 서비스", () => {
     expect(snapshot.tasks).toHaveLength(7)
     expect(snapshot.activity[0]).toEqual({
       id: "generated-2",
-      message: "Added “Release notes”",
+      message: "추가: “Release notes”",
       at: now,
     })
   })
@@ -50,8 +50,8 @@ describe("보드 응용 서비스", () => {
     const snapshot = await board.getBoard()
 
     expect(snapshot.activity.slice(0, 2).map((event) => event.message)).toEqual([
-      "Reopened “Rollback runbook”",
-      "Completed “Rollback runbook”",
+      "재개: “롤백 절차 문서화”",
+      "완료: “롤백 절차 문서화”",
     ])
   })
 
@@ -73,7 +73,7 @@ describe("보드 응용 서비스", () => {
     const snapshot = await board.getBoard()
 
     expect(snapshot.activity).toHaveLength(ACTIVITY_LIMIT)
-    expect(snapshot.activity[0].message).toBe("Added “Check 24”")
+    expect(snapshot.activity[0].message).toBe("추가: “Check 24”")
   })
 
   it("반환값을 수정해도 저장된 보드가 바뀌지 않는다", async () => {

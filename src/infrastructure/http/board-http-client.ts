@@ -3,8 +3,8 @@ import type { BoardGateway } from "../../../core/application/ports/board-gateway
 import { apiErrorSchema, boardSchema } from "../../../core/contracts/board-contract"
 import { taskSchema } from "../../../core/contracts/task-contract"
 
-const CONNECTION_ERROR = "Unable to reach the workspace. Please try again."
-const INVALID_RESPONSE_ERROR = "The workspace returned an invalid response. Please try again."
+const CONNECTION_ERROR = "워크스페이스에 연결하지 못했습니다. 다시 시도해 주세요."
+const INVALID_RESPONSE_ERROR = "워크스페이스의 응답을 확인할 수 없습니다. 다시 시도해 주세요."
 
 export function createBoardHttpClient(
   baseUrl: string,
