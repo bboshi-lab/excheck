@@ -32,7 +32,7 @@ describe("출시 워크스페이스", () => {
     expect(await screen.findByRole("checkbox", { name: "롤백 절차 문서화 완료 여부" })).not.toBeChecked()
     expect(screen.getByRole("img", { name: "출시 준비율 50%, 6개 중 3개 완료" })).toBeVisible()
     expect(screen.getByLabelText("완료한 체크 3개")).toBeVisible()
-    expect(screen.getByRole("table", { name: "분야별 체크 집계" })).toHaveTextContent("개발")
+    expect(screen.getByRole("list", { name: "분야별 체크 집계" })).toHaveTextContent("개발")
   })
 
   it("완료·재개 후 지표와 활동을 갱신한다", async () => {

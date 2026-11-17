@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { Plus } from "lucide-react"
 import type { CreateTaskInput, Task } from "../../../../core/domain/task"
-import { Button } from "../../ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../ui/dialog"
+import { Dialog, DialogContent } from "../../ui/dialog"
+import { CreateTaskTrigger } from "./dialog/create-task-trigger"
+import { CreateTaskHeader } from "./dialog/create-task-header"
 import { useCreateTask } from "../api/board-hooks"
 import { TaskForm } from "./task-form"
 
@@ -36,21 +36,9 @@ export function CreateTaskDialog({ onCreated }: CreateTaskDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button size="sm" className="gap-1.5">
-          <Plus className="size-3.5" />
-          체크 추가
-        </Button>
-      </DialogTrigger>
+      <CreateTaskTrigger />
       <DialogContent showCloseButton={!mutation.isPending} className="border-white/10 bg-popover sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-xl">완성도를 높이는 작은 확인.</DialogTitle>
-          <DialogDescription className="pt-1 leading-6">
-            출시 전에 필요한 일을 기록하세요.
-            <br />
-            추가한 체크는 준비 현황에 바로 반영됩니다.
-          </DialogDescription>
-        </DialogHeader>
+        <CreateTaskHeader />
         <TaskForm
           pending={mutation.isPending}
           error={mutation.error?.message ?? null}

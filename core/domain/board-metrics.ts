@@ -1,6 +1,6 @@
 import { TASK_CATEGORIES, type Task, type TaskCategory } from "./task"
 
-type CategorySummary = {
+export type CategorySummary = {
   category: TaskCategory
   complete: number
   remaining: number
