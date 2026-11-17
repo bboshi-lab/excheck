@@ -3,6 +3,7 @@ import { test, expect, type Page } from "@playwright/test"
 async function openWorkspace(page: Page) {
   await page.goto("./")
   await expect(page.getByRole("checkbox", { name: "롤백 절차 문서화 완료 여부" })).toBeVisible()
+  await expect(page.locator("table, thead, tbody, tfoot, tr, th, td, caption, col, colgroup, br")).toHaveCount(0)
 }
 
 async function navigateTo(page: Page, name: string) {
@@ -74,6 +75,7 @@ test("대화상자의 키보드 포커스·검증·취소를 제공한다", asyn
   const dialog = page.getByRole("dialog")
   const title = dialog.getByRole("textbox", { name: "체크 제목" })
 
+  await expect(dialog.locator("br")).toHaveCount(0)
   await expect(title).toBeFocused()
   await title.fill("   ")
   await dialog.getByRole("button", { name: "추가하기" }).click()

@@ -32,7 +32,15 @@ describe("출시 워크스페이스", () => {
     expect(await screen.findByRole("checkbox", { name: "롤백 절차 문서화 완료 여부" })).not.toBeChecked()
     expect(screen.getByRole("img", { name: "출시 준비율 50%, 6개 중 3개 완료" })).toBeVisible()
     expect(screen.getByLabelText("완료한 체크 3개")).toBeVisible()
-    expect(screen.getByRole("list", { name: "분야별 체크 집계" })).toHaveTextContent("개발")
+    const categorySummary = screen.getByRole("list", { name: "분야별 체크 집계" })
+
+    expect(within(categorySummary).getAllByRole("listitem")).toHaveLength(3)
+    expect(categorySummary).toHaveTextContent("개발: 완료 2개, 미완료 0개, 전체 2개")
+    expect(categorySummary).toHaveTextContent("디자인: 완료 1개, 미완료 1개, 전체 2개")
+    expect(categorySummary).toHaveTextContent("운영: 완료 0개, 미완료 2개, 전체 2개")
+    expect(
+      document.querySelectorAll("table, thead, tbody, tfoot, tr, th, td, caption, col, colgroup, br"),
+    ).toHaveLength(0)
   })
 
   it("완료·재개 후 지표와 활동을 갱신한다", async () => {
@@ -45,6 +53,9 @@ describe("출시 워크스페이스", () => {
     await waitFor(() => expect(checkbox).toBeChecked())
     expect(await screen.findByText("완료: “롤백 절차 문서화”")).toBeVisible()
     expect(screen.getByRole("img", { name: "출시 준비율 67%, 6개 중 4개 완료" })).toBeVisible()
+    expect(screen.getByRole("list", { name: "분야별 체크 집계" })).toHaveTextContent(
+      "운영: 완료 1개, 미완료 1개, 전체 2개",
+    )
 
     await user.click(checkbox)
 
@@ -70,6 +81,7 @@ describe("출시 워크스페이스", () => {
     const dialog = screen.getByRole("dialog")
     const title = within(dialog).getByRole("textbox", { name: "체크 제목" })
 
+    expect(dialog.querySelector("br")).toBeNull()
     await user.type(title, "   ")
     await user.click(within(dialog).getByRole("button", { name: "추가하기" }))
 
