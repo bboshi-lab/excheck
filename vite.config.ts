@@ -7,6 +7,22 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: process.env.BASE_PATH || "/",
   resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "charts",
+              test: /node_modules\/(?:recharts|d3-[^/]+|@reduxjs|redux|react-redux|reselect|immer|victory-vendor|decimal.js-light|eventemitter3)\//,
+            },
+            { name: "motion", test: /node_modules\/(?:gsap|@gsap)\// },
+            { name: "react", test: /node_modules\/(?:react|react-dom|scheduler|react-router|@tanstack)\// },
+          ],
+        },
+      },
+    },
+  },
   test: {
     projects: [
       {

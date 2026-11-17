@@ -1,8 +1,10 @@
-import React from "react"
+import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { HashRouter } from "react-router"
-import App from "./App"
+import { AppProviders } from "./app/app-providers"
+import { AppRoutes } from "./app/app-routes"
+import { createQueryClient } from "./app/create-query-client"
+import { createBoardHttpClient } from "./infrastructure/http/board-http-client"
 import "./styles.css"
 
 async function start() {
@@ -15,21 +17,20 @@ async function start() {
     })
   }
 
-  const client = new QueryClient({
-    defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
-  })
+  const gateway = createBoardHttpClient(`${import.meta.env.BASE_URL}api/`)
+  const queryClient = createQueryClient()
 
   ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-      <QueryClientProvider client={client}>
+    <StrictMode>
+      <AppProviders gateway={gateway} queryClient={queryClient}>
         <HashRouter>
-          <App />
+          <AppRoutes />
         </HashRouter>
-      </QueryClientProvider>
-    </React.StrictMode>,
+      </AppProviders>
+    </StrictMode>,
   )
 }
 
 start().catch(() => {
-  document.getElementById("root")!.textContent = "Workspace could not start. Reload this page to retry."
+  document.getElementById("root")!.textContent = "워크스페이스를 시작하지 못했습니다. 페이지를 새로고침해 주세요."
 })
