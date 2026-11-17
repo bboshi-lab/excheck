@@ -1,20 +1,91 @@
-# How this project is managed
+# 계획·구현·리뷰·배포 절차
 
-Use the existing checkout; cloud tasks are isolated, so do not create worktrees by default.
+이 프로젝트는 짧은 목적별 브랜치를 `main`에 통합한다. 이슈는 목적과 완료 기준을 추적하는 수단이며, 이슈 생성 자체가 구현 승인이나 PR 승인은 아니다. 별도의 `develop` 브랜치는 두지 않는다.
 
-Small-team trunk-based workflow: `main` is the integration branch, `feat/*` and `fix/*` are short-lived branches. This initial delivery is `feat/launchboard`. A single initial empty commit establishes a PR base because the repository began without commits. No GitFlow/develop branch is needed for one small app.
+작업 지침은 [AGENTS.md](../AGENTS.md), Git 상세 규칙은 [Git 스킬](../.agents/skills/git-conventions/SKILL.md)을 따른다. 아래 절차는 합의된 권한을 설명하며, GitHub 브랜치 보호가 설정돼 있다고 보장하는 문서가 아니다.
 
-1. Write acceptance criteria (issue if API access exists, otherwise docs/SPEC.md).
-2. Implement a cohesive slice and commit with an explanatory conventional subject.
-3. Run `pnpm check`, `pnpm worker:check`, formatting and browser tests.
-4. Inspect the diff independently of implementation: validation, failure paths, state lifetime, accessibility and deployment paths. Record concrete findings in REVIEW.md. Self-review is not independent human approval.
-5. Push branch and open PR against main. Do not invent a PR if hosting access fails.
-6. Merge after checks, then Pages deploys the mock app. A human can require branch protection; this repository does not claim it is configured.
+## 1. 조사와 Plan 승인
 
-CI runs on pushes and PRs; no issue is required for execution. CI and review are explicit commands/workflows, not invisible Codex guarantees. Remote check statuses must be observed before being called passed. No automatic bot approval is fabricated.
+기존 체크아웃에서 브랜치·사용자 변경·최신 `main`·관련 PR을 확인한다. 사용자의 변경을 보존하고 요청 없이 worktree를 추가하지 않는다. Plan 승인 전에는 조사와 계획만 수행한다.
 
-## Deployment / rollback
+계획은 검토 가능한 체크리스트로 제시한다.
 
-GitHub Pages is the default static host; Worker is never deployed. Set Settings → Pages → Source to GitHub Actions. The workflow has narrowly scoped Pages/OIDC permissions. `main` pushes deploy; manual dispatch can deploy a reviewed feature branch once the workflow is registered. A feature branch deployment is a demo, not a merge. Expected path is `/excheck/`; a URL is only called live after an HTTP and browser check.
+- [ ] 해결할 문제, 목표와 제외 범위, 기능별 완료 기준
+- [ ] 계층별 책임·의존 방향, 폴더·컴포넌트·훅의 분리
+- [ ] 주요 변경 파일, API·데이터·의존성 변경 또는 해당 없음
+- [ ] 검증 명령과 실패·오류·접근성 확인 범위
+- [ ] 독립적으로 리뷰할 PR 단위, 병합·배포 영향
 
-Rollback by reverting the main change and allowing the same workflow to rebuild. Keep lockfile with the rollback. No paid service or Cloudflare account is required. Environment publication in Codex is separate from application deployment and is not performed by these workflows.
+**사용자가 Plan을 승인하면 합의한 범위를 한 번에 구현한다.** 이미 합의한 결정을 개발 중 반복해서 묻지 않는다. 사용자의 명시적인 범위 추가는 승인에 반영하며, 그 밖의 설계·의존성·배포 대상 변경이 필요하면 먼저 수정 Plan을 합의한다.
+
+## 2. 브랜치와 구현
+
+- 최신 통합 기준에서 목적에 맞는 브랜치를 만든다. `main`에 직접 작업하거나 푸시하지 않는다.
+- 브랜치 이름과 커밋 타입은 Git 스킬을 따른다. 예: `feat/check-search`, `docs/project-handbook`.
+- 의미적으로 공통된 작업이 끝날 때마다 커밋한다. 전체 구현을 마지막 커밋 하나에 몰아넣지 않는다.
+- 제목은 `type(scope): 한국어 설명`으로 실제 변경을 드러낸다. 공유한 이력을 임의로 재작성하지 않는다.
+- 기능 개발 중 무관한 부채를 발견하면 위치·영향·개선 제안을 보고하고, 후속 리팩터링으로 제안한다. 승인 없이 함께 고치지 않는다.
+- 한 PR은 하나의 리뷰 목적에 집중한다. 여러 독립 목적은 Plan에서 나누되 PR 개수만 늘리지는 않는다.
+
+## 3. 검증과 자체 리뷰
+
+실행 코드·의존성·빌드·테스트·CI·배포 설정이 바뀌면 다음 검사를 수행한다. 관리형 환경의 경로는 [README](../README.md#현재-관리형-환경의-경로)를 따른다.
+
+```sh
+pnpm format:check
+BASE_PATH=/excheck/ pnpm check
+pnpm worker:check
+pnpm worker:test:local
+BASE_PATH=/excheck/ pnpm exec playwright test
+```
+
+`check`의 빌드는 브라우저 테스트보다 먼저 끝나야 한다. 필요한 브라우저 설치와 환경 변수도 README를 따른다. 포맷·lint 통과가 책임 분리와 코드 가독성을 보장하지는 않는다.
+
+- [ ] diff와 승인 범위, 계층 경계, 컴포넌트 조합·말단 마크업을 검토했다.
+- [ ] 입력 검증, 로딩·오류·빈 상태, 저장 실패·재시도, 상태 소유권을 확인했다.
+- [ ] 키보드·접근성·모션 축소, Pages 경로와 데이터 초기화 영향을 확인했다.
+- [ ] 실제 수행한 검사, 생략·실패·차단과 남은 한계를 구분해 PR에 기록했다.
+- [ ] 비밀 정보·생성 번들·사용자의 무관한 변경을 포함하지 않았다.
+
+설명 문서·지침만 바뀐 경우 앱 테스트·빌드·브라우저 검사는 생략할 수 있다. 대신 경로·예시·상호 참조·규칙 충돌·diff를 검토한다. 스킬 실행 스크립트나 동작 설정이 섞이면 예외를 적용하지 않는다.
+
+CI는 [변경 경로](QUALITY.md#문서-전용-ci)로 앱 검사 생략 여부를 판별한다. 현재 `.github/` 양식은 허용 목록 밖이므로 설명 문구만 바꿔도 CI는 전체 검사한다. `[skip ci]`로 필수 체크를 없애거나 판별 규칙을 임의로 넓히지 않는다.
+
+## 4. PR과 사용자 리뷰
+
+승인된 범위의 커밋·푸시·이슈·PR 생성은 AI가 수행할 수 있다. 이슈·PR·리뷰 설명은 한국어로 작성한다. 이슈에는 완료 기준과 제외 범위, PR에는 실제 변경·검증·자체 리뷰·제한을 기록한다.
+
+```text
+AI: 구현 → 자체 리뷰 → PR 생성·CI 확인 → 리뷰 수정·답변
+                                          ↓
+사용자:                        GitHub에서 현재 diff 승인
+                                          ↓
+AI:                     최신 필수 CI·미해결 변경 요청 확인 → 병합 가능
+```
+
+- Plan 승인·CI 성공·자체 리뷰·일반 댓글은 사용자 GitHub 승인 리뷰를 대체하지 않는다.
+- AI는 사용자 명의의 승인을 제출하지 않는다. CI만 통과했다고 병합하지 않는다.
+- 현재 변경에 대한 사용자 GitHub 승인, 최신 커밋의 필수 검사 통과, 미해결 변경 요청 부재를 확인하면 AI가 병합할 수 있다. 사용자가 직접 병합해도 된다.
+- 승인 후 새 커밋이 추가되면 다시 사용자 리뷰를 받는다.
+- 리뷰 수정은 해당 문제와 승인된 유사 문제 범위에 집중하고, 수정 커밋을 푸시한 뒤 GitHub에 답변과 검증 결과를 남긴다.
+- merge commit으로 의미별 커밋을 보존하는 것이 기본이다. 저장소 정책과 충돌하면 먼저 확인한다.
+- 브랜치 보호·필수 검사·권한을 우회하거나 완화하지 않는다. 접근 실패나 차단은 사실대로 보고한다.
+
+## 5. 배포와 확인
+
+현재 합의된 대상은 [GitHub Pages의 MSW 데모](https://bboshi-lab.github.io/excheck/)다. 실제 Cloudflare 계정 연결·Worker 원격 배포는 하지 않는다. Codex 환경 게시도 앱 배포와 별개이며 수행하지 않는다.
+
+- `ci.yml`은 push·PR·수동 실행에서 변경 범위를 판별하고 품질 검사를 수행한다.
+- `pages.yml`은 `main` push·수동 실행에서 판별·검사·빌드 후 Pages artifact를 배포한다. source는 GitHub Actions이며 기준 경로는 `/excheck/`, API 모드는 `mock`이다.
+- 실행 코드의 승인된 PR 병합은 자동 배포를 허용한다. 문서 전용 병합은 기존 사이트를 유지하고 새 배포를 생략한다.
+- 수동 실행은 전체 검사를 수행한다. 수동 배포도 합의된 대상·리뷰 범위 안에서만 실행하며 승인 절차를 건너뛰는 수단으로 쓰지 않는다.
+- Validate는 로컬 workerd 재시작 복원을 포함한다. Pages는 Worker dry-run 번들을 검사하지만 workerd 런타임 검사를 중복 수행하지 않는다.
+- 배포 완료는 GitHub Actions의 실제 결과로 확인한다. 사이트의 HTTP 응답·브라우저 기능 확인은 별도이며 수행한 경우만 보고한다.
+
+새 배포 대상·저장소 공개 범위·권한 변경은 별도 Plan에서 합의한다. 현재 문서는 무료 계정의 private 저장소에서도 Pages가 된다는 약속이 아니다.
+
+## 6. 되돌리기
+
+배포에 문제가 생기면 영향과 원인을 확인하고 되돌릴 범위를 사용자와 합의한다. 목적별 브랜치에서 해당 변경을 `git revert`로 되돌리고 PR·검증·사용자 리뷰를 거친다. `main`의 이력을 재작성하지 않는다.
+
+코드와 연관 lockfile을 함께 검토한다. 승인된 되돌리기가 병합되면 기존 Pages 경로로 다시 빌드·배포한다. 데이터 삭제·저장 포맷 변경이 필요하면 코드 되돌리기와 별도로 합의한다.

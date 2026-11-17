@@ -1,13 +1,35 @@
-name: Feature
-description: Plan an independently testable change
+name: 변경 계획
+description: 독립적으로 리뷰할 작업의 목표·설계·검증 범위를 정리합니다.
 body:
   - type: textarea
     id: outcome
     attributes:
-      label: User outcome and acceptance criteria
+      label: 문제와 완료 기준
+      description: 해결할 문제, 사용자에게 보이는 결과와 확인 가능한 완료 기준을 적어 주세요.
     validations:
       required: true
   - type: textarea
+    id: scope
+    attributes:
+      label: 범위와 제외 범위
+      description: 이번에 할 작업과 후속으로 남길 작업, 관련 Plan과 PR 단위를 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: architecture
+    attributes:
+      label: 설계와 변경 영향
+      description: 계층·의존 방향, 주요 파일, API·데이터·의존성·배포 영향을 적어 주세요. 관련 없는 항목은 해당 없음으로 표시합니다.
+  - type: textarea
     id: validation
     attributes:
-      label: Validation plan
+      label: 검증 계획
+      description: 실행할 검사와 오류·접근성 확인 범위를 적어 주세요. 문서 전용이면 경로·예시·상호 참조·지침 검토를 적습니다.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        이슈 작성 자체가 구현 승인은 아닙니다. Plan을 사용자와 합의한 뒤 구현합니다.
+        병합에는 현재 변경에 대한 사용자 GitHub 승인과 최신 필수 CI 통과가 필요합니다.
+        실제 Cloudflare 계정 연결·Worker 원격 배포는 하지 않습니다.

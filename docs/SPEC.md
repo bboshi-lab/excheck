@@ -1,22 +1,74 @@
-# Launchboard v0.1 — scope and acceptance
+# 기능 명세와 완료 기준
 
-A release captain needs to see what stands between a team and its next launch. Launchboard turns scattered checks into a calm, visible workspace.
+Launchboard는 출시 담당자가 개발·디자인·운영의 체크와 남은 준비 상태를 확인하는 한국어 워크스페이스다. 단일 데모 보드를 제공하며, 화면의 프로젝트 이름은 예시 데이터다.
 
-| Story               | Acceptance                                                                                                 | Evidence        |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- | --------------- |
-| Inspect readiness   | Completed / total checks yields a rounded percent; zero checks yields 0%, not ready                        | Domain tests    |
-| Complete or reopen  | Toggle updates server state, readiness and activity; rejected write keeps prior state                      | RTL + API tests |
-| Add a check         | Trimmed 3–100 character title, one of three workstreams; successful create closes form and refreshes board | RTL + API tests |
-| Focus a workstream  | All, Engineering, Design, Operations; switching filters preserves data                                     | RTL             |
-| Recover from errors | Failed initial load offers retry; failed mutation shows an alert                                           | RTL             |
-| Explore demo        | Desktop/mobile; hash routes survive refresh; reload resets mock state                                      | Playwright      |
+## 화면과 이동
 
-Non-goals: authentication, actual release execution, issue tracker integration, drag and drop, deletion, multi-project editing, or durable browser storage. A percentage is a checklist metric, not an assertion that deployment is safe. “Project Atlas” is fixture content, not a selectable project. All visitors get an independent mock workspace.
+- **대시보드 `#/`**: 전체 준비율, 완료·미완료 수, 최근 활동 수, 분야별 차트, 체크 목록과 최근 활동을 표시한다.
+- **출시 체크리스트 `#/checks`**: 분야 필터와 체크 추가·완료·재개에 집중한다.
+- **활동 타임라인 `#/activity`**: 보관 중인 최신 활동을 표시한다.
+- 알 수 없는 경로는 안내 화면과 복귀 동작을 제공한다. 정적 호스팅에서도 새로고침할 수 있도록 HashRouter를 사용한다.
+- 좁은 화면에서는 탐색 메뉴를 Sheet로 열고, 가로 스크롤 없이 사용할 수 있어야 한다.
 
-## Delivery slices
+## 기능별 완료 기준
 
-1. Foundation: pinned toolchain, domain model, API contract, Hono Worker.
-2. Workspace: responsive dashboard, server data, filters, accessible forms.
-3. Confidence: unit, integration, browser tests, CI, static demo deployment.
+### 준비율과 차트
 
-This document is the local issue/spec record when the hosting API is unavailable. It is not represented as a created GitHub issue.
+- 준비율은 `Math.round(완료 수 / 전체 수 * 100)`이다. 체크가 없으면 0%다.
+- 분야별 완료·미완료·전체 수는 실제 보드에서 계산한다. 준비율과 요약 지표는 목록의 선택 필터와 무관하게 전체 보드를 기준으로 한다.
+- 최근 활동 수는 보관 중인 기록 수이며 최대 20건이다. 전체 기간의 누적 활동 수로 표시하지 않는다.
+- 차트의 의미를 접근 가능한 이름과 분야별 수치 목록으로 제공한다. 접근성 대체 정보에도 테이블을 사용하지 않는다.
+
+### 체크 추가
+
+- 제목은 양끝 공백을 제거한 뒤 3~100자여야 한다. 실제 길이 판정은 JavaScript 문자열 길이를 사용한다.
+- 분야는 개발·디자인·운영 중 하나다. API 값은 각각 `Engineering`, `Design`, `Operations`다.
+- 성공하면 대화상자를 닫고 보드를 갱신하며 새 체크의 분야를 선택한다. 생성된 체크는 미완료 상태다.
+- 검증 실패는 설명과 입력 포커스를 제공한다. 저장 실패는 입력과 대화상자를 보존하고 오류를 알린다.
+- 저장 중에는 중복 제출과 대화상자 닫기를 막는다.
+
+### 완료와 재개
+
+- 저장 중에는 해당 체크를 비활성화한다. 성공 응답을 받은 뒤 조회를 갱신한다.
+- 성공하면 준비율·차트·목록·활동에 반영한다. 실패 시 기존 체크 상태와 오류 안내를 유지한다.
+- 분야 필터는 목록 표시만 바꾼다. 다른 분야의 체크를 삭제하거나 수정하지 않는다.
+
+### 조회와 오류 복구
+
+- 최초 조회 중에는 로딩 화면, 실패하면 오류와 재시도 동작을 제공한다.
+- 빈 보드에는 0%와 빈 상태를 표시한다.
+- HTTP 클라이언트는 성공 응답도 스키마로 검증한다. 잘못된 응답과 연결 실패를 사용자 오류 안내로 전달한다.
+- 저장 실패는 저장된 보드를 바꾸지 않으며 이후 요청이 다시 처리될 수 있어야 한다.
+
+### 키보드·접근성·모션
+
+- 본문 바로가기, 이름이 있는 입력·체크·탐색, Tabs의 키보드 이동을 제공한다.
+- 대화상자와 모바일 메뉴는 포커스를 내부에 유지하고 닫은 뒤 호출 위치로 돌려준다. 체크 추가 대화상자는 제목에 초기 포커스를 둔다.
+- `prefers-reduced-motion`에서는 진입·숫자·체크·차트 모션을 줄이고, 실행 중 설정 변경도 반영한다.
+- 데스크톱·모바일의 브라우저 기능 검사와 대시보드·입력 대화상자의 axe 검사를 수행한다. 자동 검사가 모든 접근성을 보장하지는 않는다.
+
+## 데이터와 API
+
+초기 데이터는 체크 6개 중 3개 완료 상태와 활동 1건이다. MSW는 방문자가 연 페이지에서 상태를 보관하고 새로고침하면 초기화한다. 탭·사용자 사이에서 데이터를 공유하지 않는다. 로컬 Worker는 별도의 Durable Object 저장소를 사용하며 MSW와 상태를 동기화하지 않는다.
+
+- `Board`: `tasks: Task[]`, `activity: Activity[]`
+- `Task`: `id`, `title`, `category`, `done`
+- `Activity`: `id`, `message`, `at`
+
+필드 타입·검증과 HTTP 결과는 [코어 설계](CORE_ARCHITECTURE.md#유지한-http-계약), 구현은 `core/domain`과 `core/contracts`를 따른다. 활동 메시지는 한국어이며 최신 기록을 앞에 추가하고 20건까지 보관한다.
+
+## 검증의 연결
+
+- **도메인·응용**: 준비율·분야 집계, 생성·완료·재개, 활동 제한, 저장 실패와 재시도
+- **계약·어댑터**: JSON·제목·분야·done 검증, 상태 코드, MSW·Worker의 공통 계약, 응답 검증, 저장소 격리·직렬화
+- **React 통합**: 로딩·오류·빈 상태, 필터, 생성 실패·중복 제출, 완료 실패, 재시도와 경로
+- **브라우저**: production 번들의 Pages 경로에서 실제 MSW 기능, 탐색·초기화·반응형·키보드·모션 축소·axe
+- **로컬 workerd**: 생성·완료·잘못된 입력·동시 요청·프로세스 재시작 후 저장 복원
+
+명령은 [README](../README.md#검사하기), 정적 규칙과 CI 판별은 [품질 문서](QUALITY.md), 실행 근거는 [리뷰 기록](REVIEW.md)과 각 PR에 남긴다. 테스트 개수 자체를 완료 기준으로 삼지 않는다.
+
+## 제외 범위
+
+인증·권한, 여러 사용자·프로젝트, 삭제·드래그 정렬, 이슈 트래커 연동, 브라우저 영구 저장, 실제 출시 실행은 제공하지 않는다. 실제 Cloudflare 계정 연결·원격 Worker 배포도 수행하지 않는다. 준비율 100%는 실제 배포가 안전하다는 판정이 아니다.
+
+이 명세는 현재 구현의 기준이다. 새 기능은 [작업 절차](WORKFLOW.md)에 따라 범위와 완료 기준을 Plan에서 합의한다.
