@@ -47,24 +47,24 @@ describe("보드 HTTP 클라이언트", () => {
   ])("200이어도 잘못된 응답을 UI에 넘기지 않는다: %j", async (body) => {
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(Response.json(body))
 
-    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("invalid response")
+    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("응답을 확인할 수 없습니다")
   })
 
   it("HTML 오류 응답을 파싱 오류 대신 연결 오류로 처리한다", async () => {
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(new Response("<h1>Unavailable</h1>", { status: 502 }))
 
-    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("Unable to reach")
+    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("연결하지 못했습니다")
   })
 
   it("JSON이 아닌 성공 응답도 거절한다", async () => {
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(new Response("not JSON"))
 
-    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("invalid response")
+    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("응답을 확인할 수 없습니다")
   })
 
   it("네트워크 실패를 사용자에게 전달할 오류로 변환한다", async () => {
     const fetcher = vi.fn<typeof fetch>().mockRejectedValue(new TypeError("fetch failed"))
 
-    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("Unable to reach")
+    await expect(createBoardHttpClient("/api", fetcher).getBoard()).rejects.toThrow("연결하지 못했습니다")
   })
 })

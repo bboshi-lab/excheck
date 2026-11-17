@@ -1,3 +1,4 @@
+import { fileURLToPath, URL } from "node:url"
 import { defineConfig } from "vitest/config"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
@@ -5,6 +6,23 @@ import tailwindcss from "@tailwindcss/vite"
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: process.env.BASE_PATH || "/",
+  resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "charts",
+              test: /node_modules\/(?:recharts|d3-[^/]+|@reduxjs|redux|react-redux|reselect|immer|victory-vendor|decimal.js-light|eventemitter3)\//,
+            },
+            { name: "motion", test: /node_modules\/(?:gsap|@gsap)\// },
+            { name: "react", test: /node_modules\/(?:react|react-dom|scheduler|react-router|@tanstack)\// },
+          ],
+        },
+      },
+    },
+  },
   test: {
     projects: [
       {

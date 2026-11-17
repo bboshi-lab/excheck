@@ -1,0 +1,20 @@
+import type { Activity } from "../../../../core/domain/board"
+
+import { Card } from "../../ui/card"
+
+import { ActivityFeedContent } from "./activity/activity-feed-content"
+import { ActivityFeedHeader } from "./activity/activity-feed-header"
+
+type ActivityFeedProps = {
+  activity: Activity[]
+  compact?: boolean
+}
+
+export function ActivityFeed({ activity, compact = false }: ActivityFeedProps) {
+  return (
+    <Card className="gap-5 border-white/7 bg-card/85" data-entrance>
+      <ActivityFeedHeader count={activity.length} />
+      <ActivityFeedContent activity={activity} compact={compact} />
+    </Card>
+  )
+}

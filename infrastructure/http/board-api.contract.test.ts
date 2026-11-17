@@ -88,7 +88,7 @@ for (const implementation of implementations) {
       const missing = await api.request("/missing")
 
       expect(missing.status).toBe(404)
-      expect(await missing.json()).toEqual({ error: "Not found." })
+      expect(await missing.json()).toEqual({ error: "요청한 경로를 찾을 수 없습니다." })
     })
 
     it("생성은 201과 정규화된 항목을 반환하고 활동에 반영한다", async () => {
@@ -107,7 +107,7 @@ for (const implementation of implementations) {
       })
       expect(board.tasks).toHaveLength(7)
       expect(board.tasks.at(-1)).toEqual(task)
-      expect(board.activity[0].message).toBe("Added “Release notes”")
+      expect(board.activity[0].message).toBe("추가: “Release notes”")
     })
 
     it("완료·재개의 결과와 활동을 반환한다", async () => {
@@ -127,7 +127,7 @@ for (const implementation of implementations) {
       const board = await readBoard()
 
       expect(board.activity).toHaveLength(3)
-      expect(board.activity[0].message).toBe("Reopened “Rollback runbook”")
+      expect(board.activity[0].message).toBe("재개: “롤백 절차 문서화”")
     })
 
     it.each([
@@ -141,7 +141,7 @@ for (const implementation of implementations) {
 
       expect(response.status).toBe(400)
       expect(await response.json()).toEqual({
-        error: "Use a title of 3–100 characters and a valid category.",
+        error: "제목은 양끝 공백을 제외한 3~100자로 입력하고 올바른 분야를 선택해 주세요.",
       })
       expect(await readBoard()).toEqual(createDemoBoard())
     })
@@ -167,7 +167,7 @@ for (const implementation of implementations) {
       })
 
       expect(response.status).toBe(404)
-      expect(await response.json()).toEqual({ error: "Task not found." })
+      expect(await response.json()).toEqual({ error: "체크 항목을 찾을 수 없습니다." })
       expect(await readBoard()).toEqual(createDemoBoard())
       expect((await createTask({ title: "Recovery check", category: "Design" })).status).toBe(201)
     })

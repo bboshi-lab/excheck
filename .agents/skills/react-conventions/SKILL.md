@@ -1,6 +1,6 @@
 ---
 name: react-conventions
-description: React 컴포넌트를 생성하거나 수정할 때 선언·export·props·내부 함수 컨벤션, 책임 분리와 작은 보조 컴포넌트 예외, 기능 개발 중 기존 코드 정리 범위를 판단할 때 적용한다.
+description: React 컴포넌트를 생성하거나 수정할 때 선언·export·props·내부 함수 컨벤션, 선언적 View 조합과 말단 마크업 분리, 테이블·br 금지, 기능 개발 중 기존 코드 정리 범위를 판단할 때 적용한다.
 ---
 
 # React 컴포넌트 컨벤션
@@ -47,20 +47,54 @@ export function LaunchCheck({ title, completed, onToggle }: LaunchCheckProps) {
 
 ## 컴포넌트와 파일 분리
 
-- 책임별 컴포넌트와 별도 파일로 분리하는 것을 원칙으로 한다. 여러 화면·기능의
-  컴포넌트를 편의상 한 파일에 몰아넣지 않는다.
-- 반복되는 의미 있는 UI 블록이 두 번 이상 등장하면 컴포넌트 분리를 우선 검토한다.
-  같은 컴포넌트 안의 반복도 포함한다. 단순 태그 반복이나 목록의 각 항목을 이유로
-  이름만 있는 추상화를 기계적으로 만들지는 않는다.
-- 예외적으로 아주 작고 주 컴포넌트에 밀접하게 종속된 보조 컴포넌트는 같은 파일에
-  둘 수 있다. 별도 상태·부수 효과·API 접근·독립적인 책임이나 다른 곳의 재사용 수요가
-  생기면 분리한다. 파일 분리 원칙을 무력화할 정도로 예외를 누적하지 않는다.
-- 같은 파일에 둔 보조 컴포넌트도 다른 컴포넌트의 함수 본문 안에 정의하지 않는다.
-  모듈 최상위에 두고 컴포넌트 선언·props·export 컨벤션을 유지한다.
-- 예외가 명백히 작은 경우 매번 승인을 요구하지 않고 판단하되, 리뷰에서 이유를
-  설명할 수 있어야 한다. 의미 있는 설계 예외는 Plan 또는 PR 자체 리뷰에 기록한다.
-- 파일·함수 줄 수, 복잡도, 중첩 깊이에 대한 숫자는 아직 합의하지 않았다.
-  임의의 수치를 필수 기준으로 만들지 않는다.
+- 직접 작성하는 컴포넌트는 크기와 무관하게 한 파일에 하나씩 정의한다. 작은 보조 컴포넌트도 별도 파일로 둔다.
+- View·페이지·영역 조립 컴포넌트의 `return`은 역할을 드러내는 컴포넌트의 조합으로 작성한다.
+  태그 이름만 읽어도 화면의 영역과 계층을 이해할 수 있어야 한다.
+- 상위 View에 `div`·`span`과 긴 className, 제목·설명·버튼·범례·목록 항목의 세부 마크업을
+  섞지 않는다. 레이아웃, 헤더, 본문, 요약, 항목, 필드, 상태 등 의미별 하위 컴포넌트로 내린다.
+- HTML 요소와 스타일은 명명된 레이아웃 또는 말단 컴포넌트가 소유한다. 상위에서 HTML 중첩을
+  한 겹만 감춘 뒤 내부의 마크업 덩어리를 그대로 두는 분리로 끝내지 않는다.
+- 단순히 `Wrapper`, `Content1`처럼 붙이지 않는다. `DashboardPanels`, `ChecklistProgress`,
+  `CategoryChartLegend`, `TaskTitleField`처럼 화면에서 담당하는 역할을 이름으로 설명한다.
+- 재사용 가능한 UI는 컴포넌트로, 재사용 가능한 상태·검증·이벤트 로직은 Hook으로 분리한다.
+  재사용되지 않아도 상위의 의도를 읽기 어렵게 만드는 책임은 분리한다.
+- JSX를 반환하는 함수나 변수, 함수 본문 안의 컴포넌트 선언으로 파일 분리를 우회하지 않는다.
+- 파일 수를 줄이는 것을 이유로 분리를 생략하지 않는다. 파일 수 자체에 목표나 상한을 두지 않고,
+  사용자에게 합의받지 않은 줄 수·복잡도 기준을 임의로 만들지 않는다.
+- shadcn/ui에서 가져온 원본은 기존 외부 컴포넌트 예외를 유지한다. 직접 만든 영역을 이 예외로 취급하지 않는다.
+
+```tsx
+type DashboardViewProps = {
+  board: Board
+}
+
+export function DashboardView({ board }: DashboardViewProps) {
+  const scope = useSectionEntrance()
+
+  return (
+    <DashboardLayout ref={scope}>
+      <ReleaseHero tasks={board.tasks} />
+      <LaunchMetrics board={board} />
+      <DashboardPanels>
+        <TaskChecklist board={board} />
+        <DashboardInsights>
+          <CategoryProgressChart tasks={board.tasks} />
+          <DashboardActivity activity={board.activity} />
+        </DashboardInsights>
+      </DashboardPanels>
+      <DemoResetNotice />
+    </DashboardLayout>
+  )
+}
+```
+
+## 마크업 선택
+
+- 이 프로젝트에서는 `table`, `thead`, `tbody`, `tfoot`, `tr`, `th`, `td`, `caption`, `col`,
+  `colgroup`을 사용하지 않는다. 숨긴 접근성 콘텐츠도 포함한다. `role="table"`로 우회하지 않는다.
+- 차트의 대체 정보는 분야별 이름과 완료·미완료·전체 수치를 읽을 수 있는 의미 있는 목록으로 제공한다.
+- 줄바꿈을 위해 `br`을 추가하지 않는다. 의미가 다른 문장은 문단으로 나누고, 시각적 줄바꿈은
+  CSS의 block·grid·flex 등으로 처리한다. 기존 컴포넌트의 HTML 콘텐츠 모델을 지켜 중첩 문단을 만들지 않는다.
 
 ## 포맷과 의미 단위 구분
 
@@ -76,8 +110,8 @@ export function LaunchCheck({ title, completed, onToggle }: LaunchCheckProps) {
   여러 화면의 책임을 한꺼번에 넣지 않는다.
 - 기존 공통 컴포넌트와 채택한 shadcn/ui 구성을 먼저 확인하고 일관되게 사용한다.
   공통 UI가 있다는 이유로 기능별로 같은 버튼·입력·상태 UI를 무분별하게 다시 만들지 않는다.
-- 추상화는 실제 책임·반복·변경 가능성을 근거로 한다. 파일 수나 컴포넌트 수를
-  늘리는 것 자체를 설계 개선으로 간주하지 않는다.
+- 분리한 컴포넌트는 역할이 이름으로 드러나야 한다. 불명확한 이름 아래 HTML 덩어리를
+  옮겨 놓는 것으로 끝내지 않고 하위 책임까지 분리한다. 재사용되지 않는다는 이유로 합치지 않는다.
 - 선언, 훅·상태, 내부 함수, JSX 등 의미 단위를 개행으로 구분하고 포맷·import를 일관되게 유지한다.
 - React Hooks의 호출 규칙과 접근 가능한 HTML을 지킨다. 동작과 관련된 로딩·오류·빈 상태,
   키보드 조작·포커스도 구현 범위와 검증에 포함한다.
@@ -99,7 +133,7 @@ export function LaunchCheck({ title, completed, onToggle }: LaunchCheckProps) {
 ## 완료 전 리뷰
 
 - 컴포넌트의 function 선언과 동시 export, 위쪽 Props type, 내부 arrow function을 확인한다.
-- 파일 분리·공통 UI 재사용·계층 경계를 검토하고 작은 보조 컴포넌트의 예외가 과도하지 않은지 확인한다.
+- 모든 직접 작성한 컴포넌트의 분리 깊이, 상위 return의 역할 명확성, 공통 UI 재사용과 계층 경계를 검토한다.
 - 기능 범위 밖 기존 코드 정리가 섞이지 않았는지 diff를 확인한다.
 - 실행 코드 변경 시 루트 지침에 따른 전체 테스트와 전체 브라우저 검증을 수행한다.
   문서 전용 변경은 합의된 검증 예외를 적용한다.

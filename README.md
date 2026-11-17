@@ -35,6 +35,7 @@ Reference backend: `XDG_CONFIG_HOME=/workspace/.config WRANGLER_SEND_METRICS=fal
 - [Product scope / acceptance criteria](docs/SPEC.md)
 - [Architecture / API / stack choices](docs/ARCHITECTURE.md)
 - [공통 보드 코어와 어댑터](docs/CORE_ARCHITECTURE.md)
+- [한국어 화면·표현 계층과 앱 조립](docs/PRESENTATION_ARCHITECTURE.md)
 - [Branch, PR, CI and release workflow](docs/WORKFLOW.md)
 - [Self-review and verification evidence](docs/REVIEW.md)
 
