@@ -1,4 +1,4 @@
-import type { Board } from "../domain/board";
+import type { Board } from "../domain/board"
 
 export function createDemoBoard(): Board {
   return {
@@ -47,5 +47,5 @@ export function createDemoBoard(): Board {
         at: "2026-11-16T09:00:00Z",
       },
     ],
-  };
+  }
 }

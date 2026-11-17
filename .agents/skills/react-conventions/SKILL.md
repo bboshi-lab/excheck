@@ -27,21 +27,21 @@ description: React 컴포넌트를 생성하거나 수정할 때 선언·export�
 
 ```tsx
 type LaunchCheckProps = {
-  title: string;
-  completed: boolean;
-  onToggle: () => void;
-};
+  title: string
+  completed: boolean
+  onToggle: () => void
+}
 
 export function LaunchCheck({ title, completed, onToggle }: LaunchCheckProps) {
   const handleToggle = () => {
-    onToggle();
-  };
+    onToggle()
+  }
 
   return (
     <button type="button" aria-pressed={completed} onClick={handleToggle}>
       {title}
     </button>
-  );
+  )
 }
 ```
 
@@ -61,6 +61,13 @@ export function LaunchCheck({ title, completed, onToggle }: LaunchCheckProps) {
   설명할 수 있어야 한다. 의미 있는 설계 예외는 Plan 또는 PR 자체 리뷰에 기록한다.
 - 파일·함수 줄 수, 복잡도, 중첩 깊이에 대한 숫자는 아직 합의하지 않았다.
   임의의 수치를 필수 기준으로 만들지 않는다.
+
+## 포맷과 의미 단위 구분
+
+- 저장소 `.prettierrc.json`을 사용한다. 세미콜론 없이 스페이스 2칸, trailing comma는 `all`, printWidth는 120이다.
+- 조건문과 반복문은 한 줄이어도 중괄호를 생략하지 않는다.
+- 선언·초기화, 부수 효과, 조건 분기, 반환과 테스트의 준비·실행·검증 구간을 빈 줄로 구분한다.
+- Prettier는 구문 포맷을 담당한다. 의미 단위의 빈 줄과 중괄호 누락은 직접 검토한다.
 
 ## 구성과 공통 UI
 

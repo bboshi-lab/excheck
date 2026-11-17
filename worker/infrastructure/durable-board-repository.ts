@@ -1,14 +1,14 @@
-import type { BoardRepository } from "../../core/application/ports/board-repository";
-import type { Board } from "../../core/domain/board";
-import { SerialOperationQueue } from "../../infrastructure/persistence/serial-operation-queue";
+import type { BoardRepository } from "../../core/application/ports/board-repository"
+import type { Board } from "../../core/domain/board"
+import { SerialOperationQueue } from "../../infrastructure/persistence/serial-operation-queue"
 
 export type BoardSnapshotStorage = {
-  read(): Promise<Board | undefined>;
-  write(board: Board): Promise<void>;
-};
+  read(): Promise<Board | undefined>
+  write(board: Board): Promise<void>
+}
 
 export class DurableBoardRepository implements BoardRepository {
-  private readonly queue = new SerialOperationQueue();
+  private readonly queue = new SerialOperationQueue()
 
   constructor(
     private readonly storage: BoardSnapshotStorage,
@@ -16,21 +16,17 @@ export class DurableBoardRepository implements BoardRepository {
   ) {}
 
   read(): Promise<Board> {
-    return this.queue.run(async () =>
-      structuredClone((await this.storage.read()) ?? this.createInitialBoard()),
-    );
+    return this.queue.run(async () => structuredClone((await this.storage.read()) ?? this.createInitialBoard()))
   }
 
   update<Result>(change: (draft: Board) => Result): Promise<Result> {
     return this.queue.run(async () => {
-      const draft = structuredClone(
-        (await this.storage.read()) ?? this.createInitialBoard(),
-      );
-      const result = structuredClone(change(draft));
+      const draft = structuredClone((await this.storage.read()) ?? this.createInitialBoard())
+      const result = structuredClone(change(draft))
 
-      await this.storage.write(draft);
+      await this.storage.write(draft)
 
-      return result;
-    });
+      return result
+    })
   }
 }

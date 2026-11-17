@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { taskSchema } from "./task-contract";
+import { z } from "zod"
+import { taskSchema } from "./task-contract"
 
 export const boardSchema = z.object({
   tasks: z.array(taskSchema),
@@ -10,6 +10,6 @@ export const boardSchema = z.object({
       at: z.iso.datetime(),
     }),
   ),
-});
+})
 
-export const apiErrorSchema = z.object({ error: z.string() });
+export const apiErrorSchema = z.object({ error: z.string() })

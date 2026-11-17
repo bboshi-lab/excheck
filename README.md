@@ -14,6 +14,8 @@ pnpm dev
 Default mode is **MSW**, in development and production. No account, API key or backend is needed. Data resets on reload; the UI says so. `.env.example` documents the optional mode switch; Vite loads dotenv-format files natively.
 
 ```sh
+pnpm format                 # 저장소 Prettier 설정으로 포맷 정리
+pnpm format:check           # 같은 설정으로 포맷 검사
 pnpm check                  # Vitest + strict type check + production build
 pnpm worker:check           # offline Worker bundle, no deployment
 pnpm worker:test:local      # 로컬 workerd 동시 요청·재시작 후 저장 복원 검사

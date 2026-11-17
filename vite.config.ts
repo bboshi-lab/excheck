@@ -1,6 +1,6 @@
-import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vitest/config"
+import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -12,11 +12,7 @@ export default defineConfig({
         test: {
           name: "node",
           environment: "node",
-          include: [
-            "core/**/*.test.ts",
-            "infrastructure/**/*.test.ts",
-            "worker/**/*.test.ts",
-          ],
+          include: ["core/**/*.test.ts", "infrastructure/**/*.test.ts", "worker/**/*.test.ts"],
         },
       },
       {
@@ -30,4 +26,4 @@ export default defineConfig({
       },
     ],
   },
-});
+})

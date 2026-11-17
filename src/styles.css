@@ -283,11 +283,7 @@ h1 > span {
   overflow: hidden;
   color: #f3f5ed;
   min-height: 280px;
-  background-image: radial-gradient(
-    ellipse at 85% 40%,
-    #53644855,
-    transparent 55%
-  );
+  background-image: radial-gradient(ellipse at 85% 40%, #53644855, transparent 55%);
 }
 .pill {
   display: inline-flex;

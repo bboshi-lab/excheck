@@ -1,15 +1,15 @@
-import { BoardService } from "../core/application/board-service";
-import type { Board } from "../core/domain/board";
-import { createDemoBoard } from "../core/fixtures/create-demo-board";
-import { createBoardApi } from "../infrastructure/http/create-board-api";
-import { systemBoardRuntime } from "../infrastructure/runtime/system-board-runtime";
-import { createWorkerApp } from "./create-worker-app";
-import { DurableBoardRepository } from "./infrastructure/durable-board-repository";
+import { BoardService } from "../core/application/board-service"
+import type { Board } from "../core/domain/board"
+import { createDemoBoard } from "../core/fixtures/create-demo-board"
+import { createBoardApi } from "../infrastructure/http/create-board-api"
+import { systemBoardRuntime } from "../infrastructure/runtime/system-board-runtime"
+import { createWorkerApp } from "./create-worker-app"
+import { DurableBoardRepository } from "./infrastructure/durable-board-repository"
 
-type Bindings = { BOARD: DurableObjectNamespace };
+type Bindings = { BOARD: DurableObjectNamespace }
 
 export class ReleaseBoard {
-  private readonly api: ReturnType<typeof createBoardApi>;
+  private readonly api: ReturnType<typeof createBoardApi>
 
   constructor(state: DurableObjectState) {
     const repository = new DurableBoardRepository(
@@ -18,24 +18,22 @@ export class ReleaseBoard {
         write: (board) => state.storage.put("board", board),
       },
       createDemoBoard,
-    );
+    )
 
-    this.api = createBoardApi(new BoardService(repository, systemBoardRuntime));
+    this.api = createBoardApi(new BoardService(repository, systemBoardRuntime))
   }
 
   fetch(request: Request) {
-    return this.api.fetch(request);
+    return this.api.fetch(request)
   }
 }
 
 export default {
   fetch(request, environment) {
     const worker = createWorkerApp((boardRequest) =>
-      environment.BOARD.get(environment.BOARD.idFromName("demo")).fetch(
-        boardRequest,
-      ),
-    );
+      environment.BOARD.get(environment.BOARD.idFromName("demo")).fetch(boardRequest),
+    )
 
-    return worker.fetch(request);
+    return worker.fetch(request)
   },
-} satisfies ExportedHandler<Bindings>;
+} satisfies ExportedHandler<Bindings>

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { createTaskSchema, setTaskDoneSchema } from "./task-contract";
+import { describe, expect, it } from "vitest"
+import { createTaskSchema, setTaskDoneSchema } from "./task-contract"
 
 describe("항목 입력 계약", () => {
   it("제목의 양끝 공백을 제거한다", () => {
@@ -8,8 +8,8 @@ describe("항목 입력 계약", () => {
         title: "  Release notes  ",
         category: "Design",
       }),
-    ).toEqual({ title: "Release notes", category: "Design" });
-  });
+    ).toEqual({ title: "Release notes", category: "Design" })
+  })
 
   it.each([
     { title: "   ", category: "Design" },
@@ -19,8 +19,8 @@ describe("항목 입력 계약", () => {
     { title: "Release notes" },
     null,
   ])("잘못된 생성 입력을 거절한다: %j", (input) => {
-    expect(createTaskSchema.safeParse(input).success).toBe(false);
-  });
+    expect(createTaskSchema.safeParse(input).success).toBe(false)
+  })
 
   it.each([3, 100])("제목 길이 경계값 %i를 허용한다", (length) => {
     expect(
@@ -28,13 +28,10 @@ describe("항목 입력 계약", () => {
         title: "x".repeat(length),
         category: "Engineering",
       }).success,
-    ).toBe(true);
-  });
+    ).toBe(true)
+  })
 
-  it.each([{}, { done: "true" }, { done: null }])(
-    "완료 여부에는 boolean만 허용한다: %j",
-    (input) => {
-      expect(setTaskDoneSchema.safeParse(input).success).toBe(false);
-    },
-  );
-});
+  it.each([{}, { done: "true" }, { done: null }])("완료 여부에는 boolean만 허용한다: %j", (input) => {
+    expect(setTaskDoneSchema.safeParse(input).success).toBe(false)
+  })
+})
