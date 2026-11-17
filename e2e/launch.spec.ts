@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright"
 import { test, expect, type Page } from "@playwright/test"
 
 async function openWorkspace(page: Page) {
@@ -122,4 +123,20 @@ test("본문 바로가기와 키보드 필터가 접근 가능한 이름·연결
   await expect(page.getByRole("tab", { name: "개발", exact: true })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("tabpanel", { name: "개발", exact: true }).getByRole("checkbox")).toHaveCount(2)
   await expect(page.getByRole("checkbox", { name: "롤백 절차 문서화 완료 여부" })).toHaveCount(0)
+})
+
+test("대시보드와 입력 대화상자의 접근성을 실제 DOM에서 검사한다", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await openWorkspace(page)
+
+  const dashboard = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()
+
+  expect(dashboard.violations).toEqual([])
+
+  await page.getByRole("button", { name: "체크 추가" }).click()
+  await expect(page.getByRole("textbox", { name: "체크 제목" })).toBeFocused()
+
+  const dialog = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()
+
+  expect(dialog.violations).toEqual([])
 })

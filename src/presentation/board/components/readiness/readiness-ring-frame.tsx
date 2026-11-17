@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
-
-import type { Readiness } from "../../../../../core/domain/readiness"
+import type { Readiness } from "@core/domain/readiness"
 
 type ReadinessRingFrameProps = {
   children: ReactNode

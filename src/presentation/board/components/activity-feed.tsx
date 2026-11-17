@@ -1,9 +1,7 @@
-import type { Activity } from "../../../../core/domain/board"
-
-import { Card } from "../../ui/card"
-
-import { ActivityFeedContent } from "./activity/activity-feed-content"
-import { ActivityFeedHeader } from "./activity/activity-feed-header"
+import type { Activity } from "@core/domain/board"
+import { ActivityFeedContent } from "@presentation/board/components/activity/activity-feed-content"
+import { ActivityFeedHeader } from "@presentation/board/components/activity/activity-feed-header"
+import { Card } from "@ui/card"
 
 type ActivityFeedProps = {
   activity: Activity[]

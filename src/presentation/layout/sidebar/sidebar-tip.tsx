@@ -1,7 +1,7 @@
-import { SidebarEncouragement } from "./sidebar-encouragement"
-import { SidebarTipIcon } from "./sidebar-tip-icon"
-import { SidebarTipLayout } from "./sidebar-tip-layout"
-import { SidebarTipTitle } from "./sidebar-tip-title"
+import { SidebarEncouragement } from "@presentation/layout/sidebar/sidebar-encouragement"
+import { SidebarTipIcon } from "@presentation/layout/sidebar/sidebar-tip-icon"
+import { SidebarTipLayout } from "@presentation/layout/sidebar/sidebar-tip-layout"
+import { SidebarTipTitle } from "@presentation/layout/sidebar/sidebar-tip-title"
 
 export function SidebarTip() {
   return (

@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
-
-import type { TaskFilter } from "../../state/filter-store"
+import type { TaskFilter } from "@presentation/board/state/filter-store"
 
 type ChecklistItemsPanelLayoutProps = {
   children: ReactNode

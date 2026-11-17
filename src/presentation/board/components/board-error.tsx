@@ -1,8 +1,8 @@
-import { BoardErrorIcon } from "./feedback/board-error-icon"
-import { BoardErrorLayout } from "./feedback/board-error-layout"
-import { BoardErrorMessage } from "./feedback/board-error-message"
-import { BoardErrorTitle } from "./feedback/board-error-title"
-import { BoardRetryButton } from "./feedback/board-retry-button"
+import { BoardErrorIcon } from "@presentation/board/components/feedback/board-error-icon"
+import { BoardErrorLayout } from "@presentation/board/components/feedback/board-error-layout"
+import { BoardErrorMessage } from "@presentation/board/components/feedback/board-error-message"
+import { BoardErrorTitle } from "@presentation/board/components/feedback/board-error-title"
+import { BoardRetryButton } from "@presentation/board/components/feedback/board-retry-button"
 
 type BoardErrorProps = {
   error: Error

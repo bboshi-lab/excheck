@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { createTaskSchema, setTaskDoneSchema } from "./task-contract"
+import { createTaskSchema, setTaskDoneSchema } from "@core/contracts/task-contract"
 
 describe("항목 입력 계약", () => {
   it("제목의 양끝 공백을 제거한다", () => {

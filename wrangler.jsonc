@@ -1,6 +1,7 @@
 {
   "name": "launchboard-api",
   "main": "worker/index.ts",
+  "tsconfig": "tsconfig.worker.json",
   "compatibility_date": "2026-11-01",
   "vars": {
     "ENVIRONMENT": "development",

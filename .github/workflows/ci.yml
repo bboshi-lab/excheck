@@ -9,20 +9,37 @@ jobs:
       BASE_PATH: /excheck/
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 변경 범위 판별
+        id: changes
+        run: node scripts/classify-changes.mjs
+      - name: 문서 전용 검사 생략 기록
+        if: steps.changes.outputs.docs_only == 'true'
+        run: echo '문서 전용 변경이므로 앱 검사와 빌드를 생략합니다.'
       - uses: pnpm/action-setup@v4
+        if: steps.changes.outputs.docs_only != 'true'
       - uses: actions/setup-node@v4
+        if: steps.changes.outputs.docs_only != 'true'
         with:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+        if: steps.changes.outputs.docs_only != 'true'
       - run: pnpm format:check
+        if: steps.changes.outputs.docs_only != 'true'
       - run: pnpm check
+        if: steps.changes.outputs.docs_only != 'true'
       - run: pnpm worker:check
+        if: steps.changes.outputs.docs_only != 'true'
         env:
           WRANGLER_SEND_METRICS: "false"
       - run: pnpm worker:test:local
+        if: steps.changes.outputs.docs_only != 'true'
       - run: pnpm exec playwright install --with-deps chromium
+        if: steps.changes.outputs.docs_only != 'true'
       - run: pnpm exec playwright test
+        if: steps.changes.outputs.docs_only != 'true'
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

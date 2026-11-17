@@ -1,4 +1,4 @@
-import type { Task } from "./task"
+import type { Task } from "@core/domain/task"
 
 export type Readiness = {
   complete: number

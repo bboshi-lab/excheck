@@ -1,4 +1,4 @@
-import { cn } from "../../shared/lib/utils"
+import { cn } from "@shared/lib/utils"
 
 type InlineErrorProps = {
   message: string | null

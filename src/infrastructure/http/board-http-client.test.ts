@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
-import { createDemoBoard } from "../../../core/fixtures/create-demo-board"
-import { createBoardHttpClient } from "./board-http-client"
+import { createBoardHttpClient } from "@client/http/board-http-client"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
 
 describe("보드 HTTP 클라이언트", () => {
   it("Pages 경로에서 보드를 읽고 응답을 검증한다", async () => {
@@ -13,7 +13,7 @@ describe("보드 HTTP 클라이언트", () => {
 
   it("생성·변경 본문과 URL 인코딩을 보존한다", async () => {
     const task = createDemoBoard().tasks[0]
-    const fetcher = vi.fn<typeof fetch>().mockImplementation(async () => Response.json(task))
+    const fetcher = vi.fn<typeof fetch>().mockImplementation(() => Promise.resolve(Response.json(task)))
     const client = createBoardHttpClient("/api/", fetcher)
 
     await client.createTask({ title: "Release notes", category: "Design" })

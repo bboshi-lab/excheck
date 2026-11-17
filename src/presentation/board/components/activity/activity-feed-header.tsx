@@ -1,6 +1,5 @@
-import { Badge } from "../../../ui/badge"
-
-import { PanelHeading } from "../../../components/panel-heading"
+import { PanelHeading } from "@presentation/components/panel-heading"
+import { Badge } from "@ui/badge"
 
 type ActivityFeedHeaderProps = {
   count: number

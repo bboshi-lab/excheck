@@ -1,8 +1,7 @@
 import type { LucideIcon } from "lucide-react"
-
-import { MetricHeadingLayout } from "./metric-heading-layout"
-import { MetricIcon } from "./metric-icon"
-import { MetricLabel } from "./metric-label"
+import { MetricHeadingLayout } from "@presentation/board/components/metrics/metric-heading-layout"
+import { MetricIcon } from "@presentation/board/components/metrics/metric-icon"
+import { MetricLabel } from "@presentation/board/components/metrics/metric-label"
 
 type MetricHeadingProps = {
   label: string

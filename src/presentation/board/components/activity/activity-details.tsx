@@ -1,8 +1,7 @@
-import type { Activity } from "../../../../../core/domain/board"
-
-import { ActivityDetailsLayout } from "./activity-details-layout"
-import { ActivityMessage } from "./activity-message"
-import { ActivityTime } from "./activity-time"
+import type { Activity } from "@core/domain/board"
+import { ActivityDetailsLayout } from "@presentation/board/components/activity/activity-details-layout"
+import { ActivityMessage } from "@presentation/board/components/activity/activity-message"
+import { ActivityTime } from "@presentation/board/components/activity/activity-time"
 
 type ActivityDetailsProps = {
   event: Activity

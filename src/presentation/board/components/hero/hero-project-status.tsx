@@ -1,8 +1,7 @@
-import type { Readiness } from "../../../../../core/domain/readiness"
-
-import { HeroProjectLabel } from "./hero-project-label"
-import { HeroProjectStatusLayout } from "./hero-project-status-layout"
-import { HeroStatusBadge } from "./hero-status-badge"
+import type { Readiness } from "@core/domain/readiness"
+import { HeroProjectLabel } from "@presentation/board/components/hero/hero-project-label"
+import { HeroProjectStatusLayout } from "@presentation/board/components/hero/hero-project-status-layout"
+import { HeroStatusBadge } from "@presentation/board/components/hero/hero-status-badge"
 
 type HeroProjectStatusProps = {
   readiness: Readiness

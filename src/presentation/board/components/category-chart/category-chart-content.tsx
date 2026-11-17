@@ -1,10 +1,8 @@
-import type { CategorySummary } from "../../../../../core/domain/board-metrics"
-
-import { CardContent } from "../../../ui/card"
-
-import { CategoryBarChart } from "./category-bar-chart"
-import { CategoryChartLegend } from "./category-chart-legend"
-import { CategoryCountSummary } from "./category-count-summary"
+import type { CategorySummary } from "@core/domain/board-metrics"
+import { CategoryBarChart } from "@presentation/board/components/category-chart/category-bar-chart"
+import { CategoryChartLegend } from "@presentation/board/components/category-chart/category-chart-legend"
+import { CategoryCountSummary } from "@presentation/board/components/category-chart/category-count-summary"
+import { CardContent } from "@ui/card"
 
 type CategoryChartContentProps = {
   summaries: CategorySummary[]

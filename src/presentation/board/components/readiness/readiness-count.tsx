@@ -1,4 +1,4 @@
-import type { Readiness } from "../../../../../core/domain/readiness"
+import type { Readiness } from "@core/domain/readiness"
 
 type ReadinessCountProps = {
   readiness: Readiness

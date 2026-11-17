@@ -1,6 +1,6 @@
-import { NavigationItem } from "./navigation/navigation-item"
-import { navigationItems } from "./navigation/navigation-items"
-import { NavigationListLayout } from "./navigation/navigation-list-layout"
+import { NavigationItem } from "@presentation/layout/navigation/navigation-item"
+import { navigationItems } from "@presentation/layout/navigation/navigation-items"
+import { NavigationListLayout } from "@presentation/layout/navigation/navigation-list-layout"
 
 type AppNavigationProps = {
   onNavigate?: () => void

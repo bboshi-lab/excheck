@@ -1,10 +1,9 @@
-import type { Readiness } from "../../../../../core/domain/readiness"
-
-import { HeroActions } from "./hero-actions"
-import { HeroContentLayout } from "./hero-content-layout"
-import { HeroDescription } from "./hero-description"
-import { HeroHeadline } from "./hero-headline"
-import { HeroProjectStatus } from "./hero-project-status"
+import type { Readiness } from "@core/domain/readiness"
+import { HeroActions } from "@presentation/board/components/hero/hero-actions"
+import { HeroContentLayout } from "@presentation/board/components/hero/hero-content-layout"
+import { HeroDescription } from "@presentation/board/components/hero/hero-description"
+import { HeroHeadline } from "@presentation/board/components/hero/hero-headline"
+import { HeroProjectStatus } from "@presentation/board/components/hero/hero-project-status"
 
 type HeroContentProps = {
   readiness: Readiness

@@ -1,12 +1,18 @@
+import tailwindcss from "@tailwindcss/vite"
+import react from "@vitejs/plugin-react"
 import { fileURLToPath, URL } from "node:url"
 import { defineConfig } from "vitest/config"
-import react from "@vitejs/plugin-react"
-import tailwindcss from "@tailwindcss/vite"
+import projectPaths from "./tsconfig.paths.json" with { type: "json" }
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: process.env.BASE_PATH || "/",
-  resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
+  resolve: {
+    alias: Object.entries(projectPaths.compilerOptions.paths).map(([alias, [target]]) => ({
+      find: alias.replace("/*", ""),
+      replacement: fileURLToPath(new URL(target.replace("/*", ""), import.meta.url)),
+    })),
+  },
   build: {
     rolldownOptions: {
       output: {

@@ -1,13 +1,9 @@
 import { useId } from "react"
-
-import type { TaskCategory } from "../../../../../core/domain/task"
-
-import { Label } from "../../../ui/label"
-import { Select, SelectTrigger, SelectValue } from "../../../ui/select"
-
-import { FormField } from "../../../components/form-field"
-
-import { TaskCategoryOptions } from "./task-category-options"
+import type { TaskCategory } from "@core/domain/task"
+import { TaskCategoryOptions } from "@presentation/board/components/task-form/task-category-options"
+import { FormField } from "@presentation/components/form-field"
+import { Label } from "@ui/label"
+import { Select, SelectTrigger, SelectValue } from "@ui/select"
 
 type TaskCategoryFieldProps = {
   value: TaskCategory

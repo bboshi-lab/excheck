@@ -1,10 +1,9 @@
-import { useSectionEntrance } from "../hooks/use-section-entrance"
-
-import { useBoard } from "../board/api/board-hooks"
-import { BoardQueryBoundary } from "../board/components/board-query-boundary"
-import { CategoryProgressChart } from "../board/components/category-progress-chart"
-import { TaskChecklist } from "../board/components/task-checklist"
-import { ChecklistPageLayout } from "./layouts/checklist-page-layout"
+import { useBoard } from "@presentation/board/api/board-hooks"
+import { BoardQueryBoundary } from "@presentation/board/components/board-query-boundary"
+import { CategoryProgressChart } from "@presentation/board/components/category-progress-chart"
+import { TaskChecklist } from "@presentation/board/components/task-checklist"
+import { useSectionEntrance } from "@presentation/hooks/use-section-entrance"
+import { ChecklistPageLayout } from "@presentation/pages/layouts/checklist-page-layout"
 
 export function ChecklistPage() {
   const query = useBoard()

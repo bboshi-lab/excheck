@@ -1,10 +1,9 @@
 import type { UseQueryResult } from "@tanstack/react-query"
 import type { ReactNode } from "react"
 
-import type { Board } from "../../../../core/domain/board"
-
-import { BoardError } from "./board-error"
-import { BoardSkeleton } from "./board-skeleton"
+import type { Board } from "@core/domain/board"
+import { BoardError } from "@presentation/board/components/board-error"
+import { BoardSkeleton } from "@presentation/board/components/board-skeleton"
 
 type BoardQueryBoundaryProps = {
   query: UseQueryResult<Board, Error>

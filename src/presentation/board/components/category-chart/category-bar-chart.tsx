@@ -1,12 +1,8 @@
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
-
-import type { CategorySummary } from "../../../../../core/domain/board-metrics"
-
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "../../../ui/chart"
-
-import { useReducedMotion } from "../../../hooks/use-reduced-motion"
-
-import { categoryLabels } from "../../labels"
+import type { CategorySummary } from "@core/domain/board-metrics"
+import { categoryLabels } from "@presentation/board/labels"
+import { useReducedMotion } from "@presentation/hooks/use-reduced-motion"
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@ui/chart"
 
 const chartConfig = {
   complete: { label: "완료", color: "var(--chart-1)" },

@@ -1,7 +1,6 @@
 import { Menu } from "lucide-react"
-
-import { Button } from "../../ui/button"
-import { SheetTrigger } from "../../ui/sheet"
+import { Button } from "@ui/button"
+import { SheetTrigger } from "@ui/sheet"
 
 export function MobileMenuTrigger() {
   return (

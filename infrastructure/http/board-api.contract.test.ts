@@ -1,15 +1,16 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { setupServer } from "msw/node"
-import { BoardService } from "../../core/application/board-service"
-import { boardSchema } from "../../core/contracts/board-contract"
-import { taskSchema } from "../../core/contracts/task-contract"
-import type { Board } from "../../core/domain/board"
-import { createDemoBoard } from "../../core/fixtures/create-demo-board"
-import { createWorkerApp } from "../../worker/create-worker-app"
-import { DurableBoardRepository } from "../../worker/infrastructure/durable-board-repository"
-import { systemBoardRuntime } from "../runtime/system-board-runtime"
-import { createBoardApi } from "./create-board-api"
-import { createMockBoardApi } from "./create-mock-board-api"
+import { afterEach, beforeEach, describe, expect, it } from "vitest"
+
+import { BoardService } from "@core/application/board-service"
+import { boardSchema } from "@core/contracts/board-contract"
+import { taskSchema } from "@core/contracts/task-contract"
+import type { Board } from "@core/domain/board"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { createBoardApi } from "@infrastructure/http/create-board-api"
+import { createMockBoardApi } from "@infrastructure/http/create-mock-board-api"
+import { systemBoardRuntime } from "@infrastructure/runtime/system-board-runtime"
+import { createWorkerApp } from "@worker/create-worker-app"
+import { DurableBoardRepository } from "@worker/infrastructure/durable-board-repository"
 
 type ApiHarness = {
   request(path: string, init?: RequestInit): Promise<Response>
@@ -33,7 +34,7 @@ function createWorkerHarness(): ApiHarness {
   let stored: Board | undefined
   const repository = new DurableBoardRepository(
     {
-      read: async () => stored,
+      read: () => Promise.resolve(stored),
       write: async (board) => {
         await Promise.resolve()
 

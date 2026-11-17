@@ -1,13 +1,10 @@
 import { useState } from "react"
-
-import type { CreateTaskInput, Task } from "../../../../core/domain/task"
-
-import { Dialog, DialogContent } from "../../ui/dialog"
-
-import { useCreateTask } from "../api/board-hooks"
-import { CreateTaskHeader } from "./dialog/create-task-header"
-import { CreateTaskTrigger } from "./dialog/create-task-trigger"
-import { TaskForm } from "./task-form"
+import type { CreateTaskInput, Task } from "@core/domain/task"
+import { useCreateTask } from "@presentation/board/api/board-hooks"
+import { CreateTaskHeader } from "@presentation/board/components/dialog/create-task-header"
+import { CreateTaskTrigger } from "@presentation/board/components/dialog/create-task-trigger"
+import { TaskForm } from "@presentation/board/components/task-form"
+import { Dialog, DialogContent } from "@ui/dialog"
 
 type CreateTaskDialogProps = {
   onCreated: (task: Task) => void

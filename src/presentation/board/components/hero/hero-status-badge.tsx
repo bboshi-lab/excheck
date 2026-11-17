@@ -1,8 +1,6 @@
 import { Radio } from "lucide-react"
-
-import type { Readiness } from "../../../../../core/domain/readiness"
-
-import { Badge } from "../../../ui/badge"
+import type { Readiness } from "@core/domain/readiness"
+import { Badge } from "@ui/badge"
 
 type HeroStatusBadgeProps = {
   readiness: Readiness

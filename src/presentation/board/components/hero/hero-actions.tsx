@@ -1,6 +1,6 @@
-import { ChecklistShortcut } from "./checklist-shortcut"
-import { HeroActionsLayout } from "./hero-actions-layout"
-import { HeroNextStep } from "./hero-next-step"
+import { ChecklistShortcut } from "@presentation/board/components/hero/checklist-shortcut"
+import { HeroActionsLayout } from "@presentation/board/components/hero/hero-actions-layout"
+import { HeroNextStep } from "@presentation/board/components/hero/hero-next-step"
 
 type HeroActionsProps = {
   remaining: number

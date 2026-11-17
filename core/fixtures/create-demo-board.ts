@@ -1,4 +1,4 @@
-import type { Board } from "../domain/board"
+import type { Board } from "@core/domain/board"
 
 export function createDemoBoard(): Board {
   return {

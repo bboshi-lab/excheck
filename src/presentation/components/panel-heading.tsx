@@ -1,8 +1,6 @@
 import type { ReactNode } from "react"
-
-import { CardHeader } from "../ui/card"
-
-import { PanelTitle } from "./panel-title"
+import { PanelTitle } from "@presentation/components/panel-title"
+import { CardHeader } from "@ui/card"
 
 type PanelHeadingProps = {
   eyebrow: string

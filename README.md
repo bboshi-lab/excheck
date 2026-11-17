@@ -16,7 +16,9 @@ Default mode is **MSW**, in development and production. No account, API key or b
 ```sh
 pnpm format                 # 저장소 Prettier 설정으로 포맷 정리
 pnpm format:check           # 같은 설정으로 포맷 검사
-pnpm check                  # Vitest + strict type check + production build
+pnpm lint                   # 타입·React·import·계층 규칙 검사
+pnpm lint:fix               # 별칭·import 정렬 등 안전한 자동 수정
+pnpm check                  # lint + 앱/도구 테스트 + 타입 검사 + production 빌드
 pnpm worker:check           # offline Worker bundle, no deployment
 pnpm worker:test:local      # 로컬 workerd 동시 요청·재시작 후 저장 복원 검사
 pnpm exec playwright install chromium
@@ -36,6 +38,7 @@ Reference backend: `XDG_CONFIG_HOME=/workspace/.config WRANGLER_SEND_METRICS=fal
 - [Architecture / API / stack choices](docs/ARCHITECTURE.md)
 - [공통 보드 코어와 어댑터](docs/CORE_ARCHITECTURE.md)
 - [한국어 화면·표현 계층과 앱 조립](docs/PRESENTATION_ARCHITECTURE.md)
+- [품질 검사·경로 별칭·문서 전용 CI](docs/QUALITY.md)
 - [Branch, PR, CI and release workflow](docs/WORKFLOW.md)
 - [Self-review and verification evidence](docs/REVIEW.md)
 

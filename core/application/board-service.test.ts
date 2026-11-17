@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest"
-import { MemoryBoardRepository } from "../../infrastructure/persistence/memory-board-repository"
-import { ACTIVITY_LIMIT } from "../domain/board"
-import { createDemoBoard } from "../fixtures/create-demo-board"
-import { BoardService } from "./board-service"
-import type { BoardRuntime } from "./ports/board-runtime"
-import { TaskNotFoundError } from "./task-not-found-error"
+import { BoardService } from "@core/application/board-service"
+import type { BoardRuntime } from "@core/application/ports/board-runtime"
+import { TaskNotFoundError } from "@core/application/task-not-found-error"
+import { ACTIVITY_LIMIT } from "@core/domain/board"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
+import { MemoryBoardRepository } from "@infrastructure/persistence/memory-board-repository"
 
 describe("보드 응용 서비스", () => {
   let board: BoardService

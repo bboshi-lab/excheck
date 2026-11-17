@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { createWorkerApp } from "./create-worker-app"
+import { createWorkerApp } from "@worker/create-worker-app"
 
 // 실제 Cloudflare 바인딩은 로컬 workerd 검사에서 확인한다.
 describe("Worker 요청 라우팅", () => {

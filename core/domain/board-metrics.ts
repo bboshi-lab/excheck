@@ -1,4 +1,4 @@
-import { TASK_CATEGORIES, type Task, type TaskCategory } from "./task"
+import { TASK_CATEGORIES, type Task, type TaskCategory } from "@core/domain/task"
 
 export type CategorySummary = {
   category: TaskCategory

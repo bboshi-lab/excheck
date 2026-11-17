@@ -1,8 +1,6 @@
-import type { Task } from "../../../../core/domain/task"
-
-import { useTaskTransition } from "../../hooks/use-task-transition"
-
-import { useSetTaskDone } from "../api/board-hooks"
+import type { Task } from "@core/domain/task"
+import { useSetTaskDone } from "@presentation/board/api/board-hooks"
+import { useTaskTransition } from "@presentation/hooks/use-task-transition"
 
 export function useTaskItem(task: Task) {
   const mutation = useSetTaskDone()

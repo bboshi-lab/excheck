@@ -1,5 +1,5 @@
-import { CategoryLegendKey } from "./category-legend-key"
-import { CategoryLegendKeysLayout } from "./category-legend-keys-layout"
+import { CategoryLegendKey } from "@presentation/board/components/category-chart/category-legend-key"
+import { CategoryLegendKeysLayout } from "@presentation/board/components/category-chart/category-legend-keys-layout"
 
 export function CategoryLegendKeys() {
   return (

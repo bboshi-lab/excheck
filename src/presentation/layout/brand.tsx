@@ -1,7 +1,6 @@
 import { Link } from "react-router"
-
-import { BrandMark } from "./navigation/brand-mark"
-import { BrandWordmark } from "./navigation/brand-wordmark"
+import { BrandMark } from "@presentation/layout/navigation/brand-mark"
+import { BrandWordmark } from "@presentation/layout/navigation/brand-wordmark"
 
 export function Brand() {
   return (

@@ -1,6 +1,6 @@
-import type { BoardRepository } from "../../core/application/ports/board-repository"
-import type { Board } from "../../core/domain/board"
-import { SerialOperationQueue } from "../../infrastructure/persistence/serial-operation-queue"
+import type { BoardRepository } from "@core/application/ports/board-repository"
+import type { Board } from "@core/domain/board"
+import { SerialOperationQueue } from "@infrastructure/persistence/serial-operation-queue"
 
 export type BoardSnapshotStorage = {
   read(): Promise<Board | undefined>

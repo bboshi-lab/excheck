@@ -1,11 +1,8 @@
 import { useId, type Ref } from "react"
-
-import { Input } from "../../../ui/input"
-import { Label } from "../../../ui/label"
-
-import { FormField } from "../../../components/form-field"
-
-import { TaskTitleHelp } from "./task-title-help"
+import { TaskTitleHelp } from "@presentation/board/components/task-form/task-title-help"
+import { FormField } from "@presentation/components/form-field"
+import { Input } from "@ui/input"
+import { Label } from "@ui/label"
 
 type TaskTitleFieldProps = {
   inputRef: Ref<HTMLInputElement>

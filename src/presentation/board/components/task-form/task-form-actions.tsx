@@ -1,6 +1,6 @@
-import { TaskCancelButton } from "./task-cancel-button"
-import { TaskFormActionsLayout } from "./task-form-actions-layout"
-import { TaskSubmitButton } from "./task-submit-button"
+import { TaskCancelButton } from "@presentation/board/components/task-form/task-cancel-button"
+import { TaskFormActionsLayout } from "@presentation/board/components/task-form/task-form-actions-layout"
+import { TaskSubmitButton } from "@presentation/board/components/task-form/task-submit-button"
 
 type TaskFormActionsProps = {
   pending: boolean

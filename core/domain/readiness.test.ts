@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { createDemoBoard } from "../fixtures/create-demo-board"
-import { calculateReadiness } from "./readiness"
+import { calculateReadiness } from "@core/domain/readiness"
+import { createDemoBoard } from "@core/fixtures/create-demo-board"
 
 describe("출시 준비율", () => {
   it("항목이 없으면 준비 완료로 표시하지 않는다", () => {

@@ -1,12 +1,11 @@
-import { calculateReadiness } from "../../../../core/domain/readiness"
-import type { Task } from "../../../../core/domain/task"
-
-import { HeroBackdrop } from "./hero/hero-backdrop"
-import { HeroContent } from "./hero/hero-content"
-import { HeroFootnote } from "./hero/hero-footnote"
-import { HeroMain } from "./hero/hero-main"
-import { HeroSection } from "./hero/hero-section"
-import { ReadinessRing } from "./readiness-ring"
+import { calculateReadiness } from "@core/domain/readiness"
+import type { Task } from "@core/domain/task"
+import { HeroBackdrop } from "@presentation/board/components/hero/hero-backdrop"
+import { HeroContent } from "@presentation/board/components/hero/hero-content"
+import { HeroFootnote } from "@presentation/board/components/hero/hero-footnote"
+import { HeroMain } from "@presentation/board/components/hero/hero-main"
+import { HeroSection } from "@presentation/board/components/hero/hero-section"
+import { ReadinessRing } from "@presentation/board/components/readiness-ring"
 
 type ReleaseHeroProps = {
   tasks: Task[]

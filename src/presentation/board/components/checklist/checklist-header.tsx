@@ -1,9 +1,7 @@
-import type { Task } from "../../../../../core/domain/task"
-
-import { PanelHeading } from "../../../components/panel-heading"
-
-import { CreateTaskDialog } from "../create-task-dialog"
-import { ChecklistTitle } from "./checklist-title"
+import type { Task } from "@core/domain/task"
+import { ChecklistTitle } from "@presentation/board/components/checklist/checklist-title"
+import { CreateTaskDialog } from "@presentation/board/components/create-task-dialog"
+import { PanelHeading } from "@presentation/components/panel-heading"
 
 type ChecklistHeaderProps = {
   count: number

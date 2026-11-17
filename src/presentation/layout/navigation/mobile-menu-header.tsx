@@ -1,6 +1,5 @@
-import { SheetHeader, SheetTitle, SheetDescription } from "../../ui/sheet"
-
-import { Brand } from "../brand"
+import { Brand } from "@presentation/layout/brand"
+import { SheetHeader, SheetTitle, SheetDescription } from "@ui/sheet"
 
 export function MobileMenuHeader() {
   return (

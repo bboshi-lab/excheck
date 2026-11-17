@@ -1,7 +1,6 @@
 import { Plus } from "lucide-react"
-
-import { Button } from "../../../ui/button"
-import { DialogTrigger } from "../../../ui/dialog"
+import { Button } from "@ui/button"
+import { DialogTrigger } from "@ui/dialog"
 
 export function CreateTaskTrigger() {
   return (

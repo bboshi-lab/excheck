@@ -1,14 +1,12 @@
-import type { Task } from "../../../../core/domain/task"
-
-import { useTaskItem } from "../hooks/use-task-item"
-
-import { TaskCategoryBadge } from "./checklist/task-category-badge"
-import { TaskItemContent } from "./checklist/task-item-content"
-import { TaskItemLayout } from "./checklist/task-item-layout"
-import { TaskMutationError } from "./checklist/task-mutation-error"
-import { TaskSavingIndicator } from "./checklist/task-saving-indicator"
-import { TaskTitle } from "./checklist/task-title"
-import { TaskToggle } from "./checklist/task-toggle"
+import type { Task } from "@core/domain/task"
+import { TaskCategoryBadge } from "@presentation/board/components/checklist/task-category-badge"
+import { TaskItemContent } from "@presentation/board/components/checklist/task-item-content"
+import { TaskItemLayout } from "@presentation/board/components/checklist/task-item-layout"
+import { TaskMutationError } from "@presentation/board/components/checklist/task-mutation-error"
+import { TaskSavingIndicator } from "@presentation/board/components/checklist/task-saving-indicator"
+import { TaskTitle } from "@presentation/board/components/checklist/task-title"
+import { TaskToggle } from "@presentation/board/components/checklist/task-toggle"
+import { useTaskItem } from "@presentation/board/hooks/use-task-item"
 
 type TaskItemProps = {
   task: Task

@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
-
-import { Card } from "../../../ui/card"
+import { Card } from "@ui/card"
 
 type CategoryChartCardProps = {
   children: ReactNode
