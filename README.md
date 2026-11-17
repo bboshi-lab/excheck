@@ -16,6 +16,7 @@ Default mode is **MSW**, in development and production. No account, API key or b
 ```sh
 pnpm check                  # Vitest + strict type check + production build
 pnpm worker:check           # offline Worker bundle, no deployment
+pnpm worker:test:local      # 로컬 workerd 동시 요청·재시작 후 저장 복원 검사
 pnpm exec playwright install chromium
 pnpm exec playwright test   # actual production bundle, desktop + mobile
 pnpm preview               # serve the built bundle
@@ -31,6 +32,7 @@ Reference backend: `XDG_CONFIG_HOME=/workspace/.config WRANGLER_SEND_METRICS=fal
 
 - [Product scope / acceptance criteria](docs/SPEC.md)
 - [Architecture / API / stack choices](docs/ARCHITECTURE.md)
+- [공통 보드 코어와 어댑터](docs/CORE_ARCHITECTURE.md)
 - [Branch, PR, CI and release workflow](docs/WORKFLOW.md)
 - [Self-review and verification evidence](docs/REVIEW.md)
 
