@@ -83,7 +83,11 @@ export default defineConfig(
   {
     files: ownComponents,
     ignores: ["**/*.test.tsx", "src/presentation/ui/**"],
-    rules: { "project/component-conventions": "error", "project/component-composition": "error" },
+    rules: {
+      "@eslint-react/no-class-component": "error",
+      "project/component-conventions": "error",
+      "project/component-composition": "error",
+    },
   },
   {
     files: ["src/presentation/ui/**/*.{ts,tsx}"],

@@ -1,3 +1,4 @@
+import react from "@eslint-react/eslint-plugin"
 import { RuleTester } from "eslint"
 import path from "node:path"
 import { describe, it } from "node:test"
@@ -200,5 +201,16 @@ run("no-table-or-break", {
     { code: "const value = <br/>", errors: [{ messageId: "markup" }], filename },
     { code: 'const value = <div role="table"/>', errors: [{ messageId: "markup" }], filename },
     { code: 'const value = <div role={"table"}/>', errors: [{ messageId: "markup" }], filename },
+  ],
+})
+
+tester.run("React function 컴포넌트", react.rules["no-class-component"], {
+  valid: [{ code: "export function Title() { return <h1>제목</h1> }", filename }],
+  invalid: [
+    {
+      code: 'import { Component } from "react"; export class Title extends Component { render() { return <h1>제목</h1> } }',
+      filename,
+      errors: 1,
+    },
   ],
 })
